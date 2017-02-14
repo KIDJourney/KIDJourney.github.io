@@ -3,30 +3,21 @@
 <head>
   <meta charset="utf-8">
   
-  <title>mariadb replication | Journey</title>
+  <title>self_analysis | Journey</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Linux Version:
-$root@master # uname -a
-Linux izwz92ycxa8b5h6uoxux99z 3.10.0-327.22.2.el7.x86_64 #1 SMP Thu Jun 23 17:05:11 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
-Release:
-CentOS Linux release 7.2.151">
+  <meta name="description" content="Weak self-confidence:Excepting when meeting someone I am far more better than, I will give up my opinion very easily.
+Teetering KnowledgeI can write, I can make it run. But sometime i can’t exactly te">
 <meta property="og:type" content="article">
-<meta property="og:title" content="mariadb replication">
-<meta property="og:url" content="http://yoursite.com/2017/02/08/mariadb-replication/index.html">
+<meta property="og:title" content="self_analysis">
+<meta property="og:url" content="http://yoursite.com/2017/02/13/self-analysis/index.html">
 <meta property="og:site_name" content="Journey">
-<meta property="og:description" content="Linux Version:
-$root@master # uname -a
-Linux izwz92ycxa8b5h6uoxux99z 3.10.0-327.22.2.el7.x86_64 #1 SMP Thu Jun 23 17:05:11 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
-Release:
-CentOS Linux release 7.2.151">
-<meta property="og:updated_time" content="2017-02-09T09:25:17.000Z">
+<meta property="og:description" content="Weak self-confidence:Excepting when meeting someone I am far more better than, I will give up my opinion very easily.
+Teetering KnowledgeI can write, I can make it run. But sometime i can’t exactly te">
+<meta property="og:updated_time" content="2017-02-13T07:00:32.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="mariadb replication">
-<meta name="twitter:description" content="Linux Version:
-$root@master # uname -a
-Linux izwz92ycxa8b5h6uoxux99z 3.10.0-327.22.2.el7.x86_64 #1 SMP Thu Jun 23 17:05:11 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
-Release:
-CentOS Linux release 7.2.151">
+<meta name="twitter:title" content="self_analysis">
+<meta name="twitter:description" content="Weak self-confidence:Excepting when meeting someone I am far more better than, I will give up my opinion very easily.
+Teetering KnowledgeI can write, I can make it run. But sometime i can’t exactly te">
   
     <link rel="alternate" href="/atom.xml" title="Journey" type="application/atom+xml">
   
@@ -79,10 +70,10 @@ CentOS Linux release 7.2.151">
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-mariadb-replication" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-self-analysis" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/02/08/mariadb-replication/" class="article-date">
-  <time datetime="2017-02-08T06:49:44.000Z" itemprop="datePublished">2017-02-08</time>
+    <a href="/2017/02/13/self-analysis/" class="article-date">
+  <time datetime="2017-02-13T03:32:30.000Z" itemprop="datePublished">2017-02-13</time>
 </a>
     
   </div>
@@ -93,7 +84,7 @@ CentOS Linux release 7.2.151">
         
   
     <h1 class="article-title" itemprop="name">
-      mariadb replication
+      self_analysis
     </h1>
   
 
@@ -101,101 +92,34 @@ CentOS Linux release 7.2.151">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Linux Version:</p>
-<pre><code>$root@master # uname -a
-Linux izwz92ycxa8b5h6uoxux99z 3.10.0-327.22.2.el7.x86_64 #1 SMP Thu Jun 23 17:05:11 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
-</code></pre><p>Release:</p>
-<pre><code>CentOS Linux release 7.2.1511 (Core)
-NAME=&quot;CentOS Linux&quot;
-VERSION=&quot;7 (Core)&quot;
-ID=&quot;centos&quot;
-ID_LIKE=&quot;rhel fedora&quot;
-VERSION_ID=&quot;7&quot;
-PRETTY_NAME=&quot;CentOS Linux 7 (Core)&quot;
-ANSI_COLOR=&quot;0;31&quot;
-CPE_NAME=&quot;cpe:/o:centos:centos:7&quot;
-HOME_URL=&quot;https://www.centos.org/&quot;
-BUG_REPORT_URL=&quot;https://bugs.centos.org/&quot;
-
-CENTOS_MANTISBT_PROJECT=&quot;CentOS-7&quot;
-CENTOS_MANTISBT_PROJECT_VERSION=&quot;7&quot;
-REDHAT_SUPPORT_PRODUCT=&quot;centos&quot;
-REDHAT_SUPPORT_PRODUCT_VERSION=&quot;7&quot;
-
-CentOS Linux release 7.2.1511 (Core)
-CentOS Linux release 7.2.1511 (Core)
-</code></pre><p>Install:</p>
-<pre><code>yum install mariadb-server
-systemctl enable mariadb
-systemctl start mariadb
-mysql_secure_installation
-</code></pre><h2 id="Master"><a href="#Master" class="headerlink" title="Master"></a>Master</h2><p>ChangeConfig:</p>
-<pre><code>vi /etc/my.cnf
-
-# add below 
-[mysqld]
-log-bin
-server_id=1
-log-basename=master1
-bind-address=&lt;ip address&gt;
-# socket
-</code></pre><p>CheckConfig:</p>
-<pre><code>show variables like &apos;sql_log_bin&apos;; # sql_log_bin on
-show variables like &quot;skip_networking&quot;; # sql_log_bin off
-</code></pre><p>Create Slave User:</p>
-<pre><code>grant replication slave on *.* to  xxxuser;
-</code></pre><p>CheckStatus:</p>
-<pre><code>show master status; $ record the binlog and pos
-</code></pre><h2 id="Slave"><a href="#Slave" class="headerlink" title="Slave"></a>Slave</h2><p>ChangeConfig:</p>
-<pre><code>[mysqld]
-log-bin
-server_id=2
-log-basename=slave1
-bind-address=&lt;ip address&gt;
-</code></pre><p>Config Master </p>
-<pre><code>CHANGE MASTER TO
-MASTER_HOST=&quot;&lt;ip address&gt;&quot;,
-MASTER_USER=&quot;user&quot;,
-MASTER_PASSWORD=&quot;pass&quot;,
-MASTER_PORT=3306,
-MASTER_LOG_FILE=&quot;bin_log&quot;,
-MASTER_LOG_POS=&lt;pos&gt;,
-MASTER_CONNECT_RETRY=10;
-</code></pre><p>Start Slave:</p>
-<pre><code>start slave;
-</code></pre><p>Check Status:</p>
-<pre><code>show slave status;
-</code></pre><h2 id="Refer"><a href="#Refer" class="headerlink" title="Refer"></a>Refer</h2><blockquote>
-<p><a href="https://mariadb.com/kb/en/mariadb/setting-up-replication/" target="_blank" rel="external">https://mariadb.com/kb/en/mariadb/setting-up-replication/</a></p>
-</blockquote>
+        <h2 id="Weak-self-confidence"><a href="#Weak-self-confidence" class="headerlink" title="Weak self-confidence:"></a>Weak self-confidence:</h2><p>Excepting when meeting someone I am far more better than, I will give up my opinion very easily.</p>
+<h2 id="Teetering-Knowledge"><a href="#Teetering-Knowledge" class="headerlink" title="Teetering Knowledge"></a>Teetering Knowledge</h2><p>I can write, I can make it run. But sometime i can’t exactly tell why it goes like that. Experence relay.</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/02/08/mariadb-replication/" data-id="ciz5gc87j0005mp9tomc7gcqg" class="article-share-link">Delen</a>
+      <a data-url="http://yoursite.com/2017/02/13/self-analysis/" data-id="ciz5gc8700003mp9ti2hqf3ii" class="article-share-link">Delen</a>
       
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/database/">database</a></li></ul>
-
     </footer>
   </div>
   
     
 <nav id="article-nav">
   
-    <a href="/2017/02/13/self-analysis/" id="article-nav-newer" class="article-nav-link-wrap">
+    <a href="/2017/02/13/recall-and-precision/" id="article-nav-newer" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Nieuwer</strong>
       <div class="article-nav-title">
         
-          self_analysis
+          recall_and_precision
         
       </div>
     </a>
   
   
-    <a href="/2017/01/28/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/02/08/mariadb-replication/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Ouder</strong>
-      <div class="article-nav-title">Hello World</div>
+      <div class="article-nav-title">mariadb replication</div>
     </a>
   
 </nav>
