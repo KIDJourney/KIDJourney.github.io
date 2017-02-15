@@ -19,7 +19,7 @@ landscape在index和post页面共用了一套模板，我们不想出现">
 实在找不到的话在你的post也查看源码，找article等等相关的class在theme文件中搜。
 修改下面以我用的landscape为例。
 landscape在index和post页面共用了一套模板，我们不想出现">
-<meta property="og:updated_time" content="2017-02-15T11:54:17.000Z">
+<meta property="og:updated_time" content="2017-02-15T11:55:28.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="hexo-duoshuo-comment">
 <meta name="twitter:description" content="适用于所有theme。
@@ -113,16 +113,14 @@ landscape在index和post页面共用了一套模板，我们不想出现">
 </code></pre><p>把这个直接拿来用。</p>
 <p>得到类似下面的结构</p>
 <pre><code>&lt;% if (!index){ %&gt;
-</code></pre><!-- 多说评论框 start -->
-<!-- 多说公共JS代码 end -->
-<pre><code>&lt;% } %&gt;
-</code></pre><p>以此类推，其他需要填入多说js的变量也可以在article模板中找到。</p>
+</code></pre><p>多说评论框 start<br>多说公共JS代码 end<br>    &lt;% } %&gt;</p>
+<p>以此类推，其他需要填入多说js的变量也可以在article模板中找到。</p>
 <p>done.</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/02/15/hexo-duoshuo-comment/" data-id="ciz6wh0j10003tp9tc2o5vck6" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/02/15/hexo-duoshuo-comment/" data-id="ciz6wicie0003749tv62vypse" class="article-share-link">Share</a>
 
       
 <!-- 多说评论框 start -->
