@@ -65,6 +65,63 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-hexo-duoshuo-comment" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/02/15/hexo-duoshuo-comment/" class="article-date">
+  <time datetime="2017-02-15T11:45:13.000Z" itemprop="datePublished">2017-02-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/15/hexo-duoshuo-comment/">hexo-duoshuo-comment</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>适用于所有theme。</p>
+<h2 id="定位"><a href="#定位" class="headerlink" title="定位"></a>定位</h2><p>多说可以是说一个js插件，负责把他的评论功能安插到正常的页面中。<br>在静态博客中，首先要找到构成你post的模板，一般在<code>themes/xxxx/layout</code>下。</p>
+<p>实在找不到的话在你的post也查看源码，找article等等相关的class在theme文件中搜。</p>
+<h2 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h2><p>下面以我用的landscape为例。</p>
+<p>landscape在index和post页面共用了一套模板，我们不想出现在index的post列表中每个post后面都跟着一个评论框，需要找个方法区分访问者的当前位置</p>
+<p>hexo使用的是一种和php很像的标记语言，随便看看发现了这样一条语句。</p>
+<pre><code>&lt;% if (!index){ %&gt;
+    &lt;%- partial(&apos;post/nav&apos;) %&gt;
+&lt;% } %&gt;
+</code></pre><p>把这个直接拿来用。</p>
+<p>得到类似下面的结构</p>
+<pre><code>&lt;% if (!index){ %&gt;
+</code></pre><!-- 多说评论框 start -->
+<!-- 多说公共JS代码 end -->
+<pre><code>&lt;% } %&gt;
+</code></pre><p>以此类推，其他需要填入多说js的变量也可以在article模板中找到。</p>
+<p>done.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/02/15/hexo-duoshuo-comment/" data-id="ciz6wh0j10003tp9tc2o5vck6" class="article-share-link">Share</a>
+
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-2017-plan" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/02/15/2017-plan/" class="article-date">
@@ -93,7 +150,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/02/15/2017-plan/" data-id="ciz6vqn0900004e9tx4ayjana" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/02/15/2017-plan/" data-id="ciz6wh0io0000tp9thoygu914" class="article-share-link">Share</a>
 
       
 
@@ -180,7 +237,7 @@ E     未检索到   C    D
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/02/13/recall-and-precision/" data-id="ciz6vqn0j00034e9tge5i2d32" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/02/13/recall-and-precision/" data-id="ciz6wh0j90005tp9t4bj2pskp" class="article-share-link">Share</a>
 
       
 
@@ -222,7 +279,7 @@ E     未检索到   C    D
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/02/13/self-analysis/" data-id="ciz6vqn0d00014e9ttv2x8f2g" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/02/13/self-analysis/" data-id="ciz6wh0jb0008tp9t5y2wbkvl" class="article-share-link">Share</a>
 
       
 
@@ -327,7 +384,7 @@ MASTER_CONNECT_RETRY=10;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/02/08/mariadb-replication/" data-id="ciz6vqn0o00054e9t4vl81q2l" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/02/08/mariadb-replication/" data-id="ciz6wh0j80004tp9tlge937r1" class="article-share-link">Share</a>
 
       
 
@@ -376,7 +433,7 @@ MASTER_CONNECT_RETRY=10;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/01/28/hello-world/" data-id="ciz6vqn0k00044e9tvlgw5rpw" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/01/28/hello-world/" data-id="ciz6wh0iv0001tp9tn90dd15w" class="article-share-link">Share</a>
 
       
 
@@ -400,7 +457,7 @@ MASTER_CONNECT_RETRY=10;
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ML/">ML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ML/">ML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li></ul>
     </div>
   </div>
 
@@ -410,7 +467,7 @@ MASTER_CONNECT_RETRY=10;
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Life/" style="font-size: 10px;">Life</a> <a href="/tags/ML/" style="font-size: 10px;">ML</a> <a href="/tags/database/" style="font-size: 10px;">database</a>
+      <a href="/tags/Life/" style="font-size: 10px;">Life</a> <a href="/tags/ML/" style="font-size: 10px;">ML</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/database/" style="font-size: 10px;">database</a>
     </div>
   </div>
 
@@ -432,6 +489,10 @@ MASTER_CONNECT_RETRY=10;
       <ul>
         
           <li>
+            <a href="/2017/02/15/hexo-duoshuo-comment/">hexo-duoshuo-comment</a>
+          </li>
+        
+          <li>
             <a href="/2017/02/15/2017-plan/">2017_plan</a>
           </li>
         
@@ -445,10 +506,6 @@ MASTER_CONNECT_RETRY=10;
         
           <li>
             <a href="/2017/02/08/mariadb-replication/">mariadb replication</a>
-          </li>
-        
-          <li>
-            <a href="/2017/01/28/hello-world/">Hello World</a>
           </li>
         
       </ul>
