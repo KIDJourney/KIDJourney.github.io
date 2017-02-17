@@ -65,10 +65,10 @@
       <div class="outer">
         <section id="main">
   
-    <article id="post-bias-and-variance" class="article article-type-post" itemscope itemprop="blogPost">
+    <article id="post-about-encoding" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/02/16/bias-and-variance/" class="article-date">
-  <time datetime="2017-02-16T01:35:34.000Z" itemprop="datePublished">2017-02-16</time>
+    <a href="/2017/02/17/about-encoding/" class="article-date">
+  <time datetime="2017-02-17T07:26:45.000Z" itemprop="datePublished">2017-02-17</time>
 </a>
     
   </div>
@@ -79,7 +79,7 @@
         
   
     <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/16/bias-and-variance/">bias-and-variance</a>
+      <a class="article-title" href="/2017/02/17/about-encoding/">about_encoding</a>
     </h1>
   
 
@@ -87,11 +87,78 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h2 id="关于Unicode"><a href="#关于Unicode" class="headerlink" title="关于Unicode"></a>关于Unicode</h2><p>几个概念：</p>
+<h4 id="Code-Point"><a href="#Code-Point" class="headerlink" title="Code Point"></a>Code Point</h4><p>code point是一个整数值，一般为十六进制。比如<code>0x12ca</code>写作<code>U+12ca</code></p>
+<h4 id="Character"><a href="#Character" class="headerlink" title="Character"></a>Character</h4><p>character是文本的最小基本单位，如<code>A</code>、<code>B</code>、<code>C</code>、<code>你</code>、<code>我</code>、<code>他</code>、<code>+</code>、<code>-</code>、<code>！</code>、<code>。</code></p>
+<h4 id="glyph"><a href="#glyph" class="headerlink" title="glyph"></a>glyph</h4><p>glyph是字符在屏幕上的表现形式。</p>
+<h3 id="这三者之间的关系"><a href="#这三者之间的关系" class="headerlink" title="这三者之间的关系"></a>这三者之间的关系</h3><p>UNICODE_TABLE[code_point] =&gt; character</p>
+<p>print(character) =&gt; 我们在屏幕上看到的东西</p>
+<h2 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h2><p>Unicode字符串其实就是一串code point，从0到0x10FFFF。</p>
+<p>在计算机中，保存数据只能通过二进制来表示，因此这一串code point需要用一组byte来表示。</p>
+<p>将Unicode string转化成一串字符串的规则，被叫做编码。</p>
+<p>我们现在制造一种编码，用32位表示一个code point，那么”Pyhton”就会被表示为:</p>
+<pre><code>   P           y           t           h           o           n
+0x50 00 00 00 79 00 00 00 74 00 00 00 68 00 00 00 6f 00 00 00 6e 00 00 00
+   0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23
+</code></pre><p>这种方法简单粗暴，但是有一些问题：</p>
+<ul>
+<li>兼容性不好：不同处理器处理字节的顺序不同。<a href="https://en.wikipedia.org/wiki/Endianness" target="_blank" rel="external">Endian</a></li>
+<li>浪费空间，对于一篇纯英文的文章来说，存储空间要是ascii的四倍。</li>
+<li>和C语言的<code>strlen</code>不兼容，因为有<code>\0</code>。</li>
+<li>很多网络协议是基于文本的，不能处理其中的<code>0x00</code>(\0)。</li>
+</ul>
+<h2 id="UTF8"><a href="#UTF8" class="headerlink" title="UTF8"></a>UTF8</h2><p>UTF-8 是一种最广泛使用的编码格式。UTF代表着<code>Unicode Transformation Format</code>，<code>8</code>代表编码使用8bit的数字。</p>
+<p>UTF-8有几个很方便的属性：</p>
+<ul>
+<li>可以处理任何Unicode code point。</li>
+<li>通过UTF8编码得到的byte串没有内嵌的<code>0x00</code>，这避免了字节序的问题，并且兼容c语言字符串相关的函数和那些无法正确处理<code>\0</code>的协议。</li>
+<li>兼容古老的ASCII。</li>
+<li>空间使用率高，大部分的最常使用的字符都可以在2字节内表示。</li>
+<li>就算由UTF-8编码得到的byte串在传输过程中丢失、损毁信息，也可以很简单的找到下一个code point。</li>
+</ul>
+<h2 id="不同编码之间的转换"><a href="#不同编码之间的转换" class="headerlink" title="不同编码之间的转换"></a>不同编码之间的转换</h2><h2 id="Encoding-In-Python"><a href="#Encoding-In-Python" class="headerlink" title="Encoding  In Python"></a>Encoding  In Python</h2>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/02/16/bias-and-variance/" data-id="ciz7qpb1m0001e49t2q91re3z" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/02/17/about-encoding/" data-id="ciz9ypsf90003rbho1dbwhs4q" class="article-share-link">Share</a>
+
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-bias-and-variance" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/02/16/bias-and-variance/" class="article-date">
+  <time datetime="2017-02-16T01:35:34.000Z" itemprop="datePublished">2017-02-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <hr>
+<p>title: bias-and-variance<br>date: 2017-02-16 09:35:34</p>
+<h2 id="tags-ML"><a href="#tags-ML" class="headerlink" title="tags: ML"></a>tags: ML</h2><h1 id="偏差与方差"><a href="#偏差与方差" class="headerlink" title="偏差与方差"></a>偏差与方差</h1><h2 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h2><h3 id="偏差（Bias）"><a href="#偏差（Bias）" class="headerlink" title="偏差（Bias）"></a>偏差（Bias）</h3><p>Bias反映了预测值与真实值之间的差异，是模型本身的精确度。</p>
+<h3 id="方差（Variance）"><a href="#方差（Variance）" class="headerlink" title="方差（Variance）"></a>方差（Variance）</h3><p>方差反映了模型输出结果与模型输出期望之间的误差，是模型本身的稳定性。</p>
+<p><img src="../images/bias_and_variance.png" alt="Fig.1"></p>
+<p>可以用打靶来举例。</p>
+<p>低误差的射手（模型），可以保证所有落点都集中在准心附近。</p>
+<p>低方差的射手可以保证他的准心很稳定的集中在一个区域内。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="http://yoursite.com/2017/02/16/bias-and-variance/" data-id="ciz9ypsf30001rbhocbozvhj6" class="article-share-link">Share</a>
 
       
 
@@ -146,7 +213,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/02/15/hexo-duoshuo-comment/" data-id="ciz7qpb1y0004e49tb711u92h" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/02/15/hexo-duoshuo-comment/" data-id="ciz9ypsfg0004rbhoipg7xn8p" class="article-share-link">Share</a>
 
       
 
@@ -188,7 +255,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/02/15/2017-plan/" data-id="ciz7qpb1j0000e49tee1hxisx" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/02/15/2017-plan/" data-id="ciz9ypsey0000rbho9r1gvhiv" class="article-share-link">Share</a>
 
       
 
@@ -275,7 +342,7 @@ E     未检索到   C    D
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/02/13/recall-and-precision/" data-id="ciz7qpb210008e49tkxrmgrux" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/02/13/recall-and-precision/" data-id="ciz9ypsfj0008rbhon0nj2le9" class="article-share-link">Share</a>
 
       
 
@@ -317,7 +384,7 @@ E     未检索到   C    D
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/02/13/self-analysis/" data-id="ciz7qpb220009e49tc1gbonpo" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/02/13/self-analysis/" data-id="ciz9ypsfm0009rbhor6uknmhw" class="article-share-link">Share</a>
 
       
 
@@ -422,7 +489,7 @@ MASTER_CONNECT_RETRY=10;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/02/08/mariadb-replication/" data-id="ciz7qpb200005e49tq1ud8ay9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/02/08/mariadb-replication/" data-id="ciz9ypsfi0005rbhobn6rs9lz" class="article-share-link">Share</a>
 
       
 
@@ -471,7 +538,7 @@ MASTER_CONNECT_RETRY=10;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/01/28/hello-world/" data-id="ciz7qpb1w0003e49t171gixgz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/01/28/hello-world/" data-id="ciz9ypsfq000brbho33qv1hgm" class="article-share-link">Share</a>
 
       
 
@@ -495,7 +562,7 @@ MASTER_CONNECT_RETRY=10;
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ML/">ML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CS/">CS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ML/">ML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li></ul>
     </div>
   </div>
 
@@ -505,7 +572,7 @@ MASTER_CONNECT_RETRY=10;
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/Life/" style="font-size: 10px;">Life</a> <a href="/tags/ML/" style="font-size: 10px;">ML</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/database/" style="font-size: 10px;">database</a>
+      <a href="/tags/CS/" style="font-size: 10px;">CS</a> <a href="/tags/Life/" style="font-size: 10px;">Life</a> <a href="/tags/ML/" style="font-size: 10px;">ML</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/database/" style="font-size: 10px;">database</a>
     </div>
   </div>
 
@@ -527,7 +594,11 @@ MASTER_CONNECT_RETRY=10;
       <ul>
         
           <li>
-            <a href="/2017/02/16/bias-and-variance/">bias-and-variance</a>
+            <a href="/2017/02/17/about-encoding/">about_encoding</a>
+          </li>
+        
+          <li>
+            <a href="/2017/02/16/bias-and-variance/">(no title)</a>
           </li>
         
           <li>
@@ -540,10 +611,6 @@ MASTER_CONNECT_RETRY=10;
         
           <li>
             <a href="/2017/02/13/recall-and-precision/">recall_and_precision</a>
-          </li>
-        
-          <li>
-            <a href="/2017/02/13/self-analysis/">self_analysis</a>
           </li>
         
       </ul>

@@ -3,30 +3,33 @@
 <head>
   <meta charset="utf-8">
   
-  <title>mariadb replication | Journey</title>
+  <title>about_encoding | Journey</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Linux Version:
-$root@master # uname -a
-Linux izwz92ycxa8b5h6uoxux99z 3.10.0-327.22.2.el7.x86_64 #1 SMP Thu Jun 23 17:05:11 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
-Release:
-CentOS Linux release 7.2.151">
+  <meta name="description" content="关于Unicode几个概念：
+Code Pointcode point是一个整数值，一般为十六进制。比如0x12ca写作U+12ca
+Charactercharacter是文本的最小基本单位，如A、B、C、你、我、他、+、-、！、。
+glyphglyph是字符在屏幕上的表现形式。
+这三者之间的关系UNICODE_TABLE[code_point] =&amp;gt; character
+print(cha">
 <meta property="og:type" content="article">
-<meta property="og:title" content="mariadb replication">
-<meta property="og:url" content="http://yoursite.com/2017/02/08/mariadb-replication/index.html">
+<meta property="og:title" content="about_encoding">
+<meta property="og:url" content="http://yoursite.com/2017/02/17/about-encoding/index.html">
 <meta property="og:site_name" content="Journey">
-<meta property="og:description" content="Linux Version:
-$root@master # uname -a
-Linux izwz92ycxa8b5h6uoxux99z 3.10.0-327.22.2.el7.x86_64 #1 SMP Thu Jun 23 17:05:11 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
-Release:
-CentOS Linux release 7.2.151">
-<meta property="og:updated_time" content="2017-02-09T09:25:17.000Z">
+<meta property="og:description" content="关于Unicode几个概念：
+Code Pointcode point是一个整数值，一般为十六进制。比如0x12ca写作U+12ca
+Charactercharacter是文本的最小基本单位，如A、B、C、你、我、他、+、-、！、。
+glyphglyph是字符在屏幕上的表现形式。
+这三者之间的关系UNICODE_TABLE[code_point] =&amp;gt; character
+print(cha">
+<meta property="og:updated_time" content="2017-02-17T15:20:29.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="mariadb replication">
-<meta name="twitter:description" content="Linux Version:
-$root@master # uname -a
-Linux izwz92ycxa8b5h6uoxux99z 3.10.0-327.22.2.el7.x86_64 #1 SMP Thu Jun 23 17:05:11 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
-Release:
-CentOS Linux release 7.2.151">
+<meta name="twitter:title" content="about_encoding">
+<meta name="twitter:description" content="关于Unicode几个概念：
+Code Pointcode point是一个整数值，一般为十六进制。比如0x12ca写作U+12ca
+Charactercharacter是文本的最小基本单位，如A、B、C、你、我、他、+、-、！、。
+glyphglyph是字符在屏幕上的表现形式。
+这三者之间的关系UNICODE_TABLE[code_point] =&amp;gt; character
+print(cha">
   
     <link rel="alternate" href="/atom.xml" title="Journey" type="application/atom+xml">
   
@@ -79,10 +82,10 @@ CentOS Linux release 7.2.151">
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-mariadb-replication" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-about-encoding" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/02/08/mariadb-replication/" class="article-date">
-  <time datetime="2017-02-08T06:49:44.000Z" itemprop="datePublished">2017-02-08</time>
+    <a href="/2017/02/17/about-encoding/" class="article-date">
+  <time datetime="2017-02-17T07:26:45.000Z" itemprop="datePublished">2017-02-17</time>
 </a>
     
   </div>
@@ -93,7 +96,7 @@ CentOS Linux release 7.2.151">
         
   
     <h1 class="article-title" itemprop="name">
-      mariadb replication
+      about_encoding
     </h1>
   
 
@@ -101,82 +104,44 @@ CentOS Linux release 7.2.151">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Linux Version:</p>
-<pre><code>$root@master # uname -a
-Linux izwz92ycxa8b5h6uoxux99z 3.10.0-327.22.2.el7.x86_64 #1 SMP Thu Jun 23 17:05:11 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
-</code></pre><p>Release:</p>
-<pre><code>CentOS Linux release 7.2.1511 (Core)
-NAME=&quot;CentOS Linux&quot;
-VERSION=&quot;7 (Core)&quot;
-ID=&quot;centos&quot;
-ID_LIKE=&quot;rhel fedora&quot;
-VERSION_ID=&quot;7&quot;
-PRETTY_NAME=&quot;CentOS Linux 7 (Core)&quot;
-ANSI_COLOR=&quot;0;31&quot;
-CPE_NAME=&quot;cpe:/o:centos:centos:7&quot;
-HOME_URL=&quot;https://www.centos.org/&quot;
-BUG_REPORT_URL=&quot;https://bugs.centos.org/&quot;
-
-CENTOS_MANTISBT_PROJECT=&quot;CentOS-7&quot;
-CENTOS_MANTISBT_PROJECT_VERSION=&quot;7&quot;
-REDHAT_SUPPORT_PRODUCT=&quot;centos&quot;
-REDHAT_SUPPORT_PRODUCT_VERSION=&quot;7&quot;
-
-CentOS Linux release 7.2.1511 (Core)
-CentOS Linux release 7.2.1511 (Core)
-</code></pre><p>Install:</p>
-<pre><code>yum install mariadb-server
-systemctl enable mariadb
-systemctl start mariadb
-mysql_secure_installation
-</code></pre><h2 id="Master"><a href="#Master" class="headerlink" title="Master"></a>Master</h2><p>ChangeConfig:</p>
-<pre><code>vi /etc/my.cnf
-
-# add below 
-[mysqld]
-log-bin
-server_id=1
-log-basename=master1
-bind-address=&lt;ip address&gt;
-# socket
-</code></pre><p>CheckConfig:</p>
-<pre><code>show variables like &apos;sql_log_bin&apos;; # sql_log_bin on
-show variables like &quot;skip_networking&quot;; # sql_log_bin off
-</code></pre><p>Create Slave User:</p>
-<pre><code>grant replication slave on *.* to  xxxuser;
-</code></pre><p>CheckStatus:</p>
-<pre><code>show master status; $ record the binlog and pos
-</code></pre><h2 id="Slave"><a href="#Slave" class="headerlink" title="Slave"></a>Slave</h2><p>ChangeConfig:</p>
-<pre><code>[mysqld]
-log-bin
-server_id=2
-log-basename=slave1
-bind-address=&lt;ip address&gt;
-</code></pre><p>Config Master </p>
-<pre><code>CHANGE MASTER TO
-MASTER_HOST=&quot;&lt;ip address&gt;&quot;,
-MASTER_USER=&quot;user&quot;,
-MASTER_PASSWORD=&quot;pass&quot;,
-MASTER_PORT=3306,
-MASTER_LOG_FILE=&quot;bin_log&quot;,
-MASTER_LOG_POS=&lt;pos&gt;,
-MASTER_CONNECT_RETRY=10;
-</code></pre><p>Start Slave:</p>
-<pre><code>start slave;
-</code></pre><p>Check Status:</p>
-<pre><code>show slave status;
-</code></pre><h2 id="Refer"><a href="#Refer" class="headerlink" title="Refer"></a>Refer</h2><blockquote>
-<p><a href="https://mariadb.com/kb/en/mariadb/setting-up-replication/" target="_blank" rel="external">https://mariadb.com/kb/en/mariadb/setting-up-replication/</a></p>
-</blockquote>
-
+        <h2 id="关于Unicode"><a href="#关于Unicode" class="headerlink" title="关于Unicode"></a>关于Unicode</h2><p>几个概念：</p>
+<h4 id="Code-Point"><a href="#Code-Point" class="headerlink" title="Code Point"></a>Code Point</h4><p>code point是一个整数值，一般为十六进制。比如<code>0x12ca</code>写作<code>U+12ca</code></p>
+<h4 id="Character"><a href="#Character" class="headerlink" title="Character"></a>Character</h4><p>character是文本的最小基本单位，如<code>A</code>、<code>B</code>、<code>C</code>、<code>你</code>、<code>我</code>、<code>他</code>、<code>+</code>、<code>-</code>、<code>！</code>、<code>。</code></p>
+<h4 id="glyph"><a href="#glyph" class="headerlink" title="glyph"></a>glyph</h4><p>glyph是字符在屏幕上的表现形式。</p>
+<h3 id="这三者之间的关系"><a href="#这三者之间的关系" class="headerlink" title="这三者之间的关系"></a>这三者之间的关系</h3><p>UNICODE_TABLE[code_point] =&gt; character</p>
+<p>print(character) =&gt; 我们在屏幕上看到的东西</p>
+<h2 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h2><p>Unicode字符串其实就是一串code point，从0到0x10FFFF。</p>
+<p>在计算机中，保存数据只能通过二进制来表示，因此这一串code point需要用一组byte来表示。</p>
+<p>将Unicode string转化成一串字符串的规则，被叫做编码。</p>
+<p>我们现在制造一种编码，用32位表示一个code point，那么”Pyhton”就会被表示为:</p>
+<pre><code>   P           y           t           h           o           n
+0x50 00 00 00 79 00 00 00 74 00 00 00 68 00 00 00 6f 00 00 00 6e 00 00 00
+   0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23
+</code></pre><p>这种方法简单粗暴，但是有一些问题：</p>
+<ul>
+<li>兼容性不好：不同处理器处理字节的顺序不同。<a href="https://en.wikipedia.org/wiki/Endianness" target="_blank" rel="external">Endian</a></li>
+<li>浪费空间，对于一篇纯英文的文章来说，存储空间要是ascii的四倍。</li>
+<li>和C语言的<code>strlen</code>不兼容，因为有<code>\0</code>。</li>
+<li>很多网络协议是基于文本的，不能处理其中的<code>0x00</code>(\0)。</li>
+</ul>
+<h2 id="UTF8"><a href="#UTF8" class="headerlink" title="UTF8"></a>UTF8</h2><p>UTF-8 是一种最广泛使用的编码格式。UTF代表着<code>Unicode Transformation Format</code>，<code>8</code>代表编码使用8bit的数字。</p>
+<p>UTF-8有几个很方便的属性：</p>
+<ul>
+<li>可以处理任何Unicode code point。</li>
+<li>通过UTF8编码得到的byte串没有内嵌的<code>0x00</code>，这避免了字节序的问题，并且兼容c语言字符串相关的函数和那些无法正确处理<code>\0</code>的协议。</li>
+<li>兼容古老的ASCII。</li>
+<li>空间使用率高，大部分的最常使用的字符都可以在2字节内表示。</li>
+<li>就算由UTF-8编码得到的byte串在传输过程中丢失、损毁信息，也可以很简单的找到下一个code point。</li>
+</ul>
+<h2 id="不同编码之间的转换"><a href="#不同编码之间的转换" class="headerlink" title="不同编码之间的转换"></a>不同编码之间的转换</h2><h2 id="Encoding-In-Python"><a href="#Encoding-In-Python" class="headerlink" title="Encoding  In Python"></a>Encoding  In Python</h2>
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/02/08/mariadb-replication/" data-id="ciz9ypsfi0005rbhobn6rs9lz" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/02/17/about-encoding/" data-id="ciz9ypsf90003rbho1dbwhs4q" class="article-share-link">Share</a>
 
       
 <!-- 多说评论框 start -->
-  <div class="ds-thread" data-thread-key="post-mariadb-replication" data-title="mariadb replication" data-url="/2017/02/08/mariadb-replication/"></div>
+  <div class="ds-thread" data-thread-key="post-about-encoding" data-title="about_encoding" data-url="/2017/02/17/about-encoding/"></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
@@ -194,7 +159,7 @@ var duoshuoQuery = {short_name:"kidjourney"};
 
 
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/database/">database</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li></ul>
 
     </footer>
   </div>
@@ -202,19 +167,10 @@ var duoshuoQuery = {short_name:"kidjourney"};
     
 <nav id="article-nav">
   
-    <a href="/2017/02/13/self-analysis/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          self_analysis
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/01/28/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/02/16/bias-and-variance/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Hello World</div>
+      <div class="article-nav-title"></div>
     </a>
   
 </nav>
