@@ -87,15 +87,133 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        
+        <h2 id="Why"><a href="#Why" class="headerlink" title="Why"></a>Why</h2><ul>
+<li>用户体验<ul>
+<li>用户留存</li>
+</ul>
+</li>
+<li>运营成本<ul>
+<li>硬件成本</li>
+<li>边际成本</li>
+</ul>
+</li>
+</ul>
+<h2 id="What"><a href="#What" class="headerlink" title="What"></a>What</h2><ul>
+<li>响应慢</li>
+<li>单机容量低</li>
+<li>并发能力弱</li>
+</ul>
+<h2 id="How"><a href="#How" class="headerlink" title="How"></a>How</h2><ul>
+<li><p>数据驱动</p>
+<ul>
+<li>定性</li>
+<li>定量</li>
+<li>诊断工具</li>
+</ul>
+</li>
+<li><p>系统诊断</p>
+<ul>
+<li>热点</li>
+<li>切分阶段，快速定位。</li>
+</ul>
+</li>
+</ul>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><ul>
+<li><p>单机容量低</p>
+<ul>
+<li>CPU ?<ul>
+<li>判断<ul>
+<li>load</li>
+<li>cpu useage</li>
+<li>cpu steal</li>
+</ul>
+</li>
+<li>定位<ul>
+<li>top</li>
+<li>stack</li>
+</ul>
+</li>
+<li>分析<ul>
+<li>profile tool</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>内存</p>
+<ul>
+<li>判断<ul>
+<li>mem指标</li>
+<li>swap    </li>
+<li>语言相关参数</li>
+</ul>
+</li>
+<li>定位<ul>
+<li>各种内存诊断工具</li>
+</ul>
+</li>
+<li>分析<ul>
+<li>toll</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>网络</p>
+<ul>
+<li>判断<ul>
+<li>net.if socket异常</li>
+</ul>
+</li>
+<li>定位<ul>
+<li>netstat</li>
+<li>iftop</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>响应慢</p>
+<ul>
+<li>下游依赖慢: db,cache,service <ul>
+<li>调用链分析</li>
+</ul>
+</li>
+<li>同步调用（大量同步调用其他服务接口）<ul>
+<li>调用链 + 定量评估</li>
+<li>异步化</li>
+</ul>
+</li>
+<li>逻辑实现：循环调用，本地方法耗时？<ul>
+<li>profiler 查热点。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>并发弱<ul>
+<li>资源瓶颈: 线程池，连接池<ul>
+<li>保证线程池大小与CPU数量挂钩。</li>
+</ul>
+</li>
+<li>资源竞争: cpu切换，锁<ul>
+<li>异步化，降低 context switch</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/02/21/backend-performance-profile/" data-id="cizfhy0nj0003zf9trgabglym" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/02/21/backend-performance-profile/" data-id="cizfnuupg0000ryhoe1wyrs5a" class="article-share-link">Share</a>
 
       
 
       
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/backend/">backend</a></li></ul>
+
     </footer>
   </div>
   
@@ -158,7 +276,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/02/17/about-encoding/" data-id="cizfhy0ne0001zf9th68mf67o" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/02/17/about-encoding/" data-id="cizfnuupv0003ryho9uj8yb8u" class="article-share-link">Share</a>
 
       
 
@@ -204,7 +322,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/02/16/bias-and-variance/" data-id="cizfhy0nk0004zf9te21xztcc" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/02/16/bias-and-variance/" data-id="cizfnuupq0001ryhoqwtcxrnk" class="article-share-link">Share</a>
 
       
 
@@ -261,7 +379,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/02/15/hexo-duoshuo-comment/" data-id="cizfhy0nu000bzf9t9hbukava" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/02/15/hexo-duoshuo-comment/" data-id="cizfnuupy0005ryhoju76d7ke" class="article-share-link">Share</a>
 
       
 
@@ -303,7 +421,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/02/15/2017-plan/" data-id="cizfhy0nb0000zf9t2ewuskjn" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/02/15/2017-plan/" data-id="cizfnuupw0004ryhod0v2tfst" class="article-share-link">Share</a>
 
       
 
@@ -390,7 +508,7 @@ E     未检索到   C    D
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/02/13/recall-and-precision/" data-id="cizfhy0nq0009zf9ttvpkplrd" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/02/13/recall-and-precision/" data-id="cizfnuuq5000bryhokgf50rsk" class="article-share-link">Share</a>
 
       
 
@@ -432,7 +550,7 @@ E     未检索到   C    D
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/02/13/self-analysis/" data-id="cizfhy0nv000dzf9t0shf8ugg" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/02/13/self-analysis/" data-id="cizfnuuq6000dryhop03tvi2t" class="article-share-link">Share</a>
 
       
 
@@ -537,7 +655,7 @@ MASTER_CONNECT_RETRY=10;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/02/08/mariadb-replication/" data-id="cizfhy0np0008zf9t8n4woae9" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/02/08/mariadb-replication/" data-id="cizfnuuq20009ryho5cygezwz" class="article-share-link">Share</a>
 
       
 
@@ -586,7 +704,7 @@ MASTER_CONNECT_RETRY=10;
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/01/28/hello-world/" data-id="cizfhy0nn0005zf9tanm52avv" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/01/28/hello-world/" data-id="cizfnuupz0008ryho38uld4d3" class="article-share-link">Share</a>
 
       
 
@@ -610,7 +728,7 @@ MASTER_CONNECT_RETRY=10;
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CS/">CS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ML/">ML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CS/">CS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ML/">ML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backend/">backend</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li></ul>
     </div>
   </div>
 
@@ -620,7 +738,7 @@ MASTER_CONNECT_RETRY=10;
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/CS/" style="font-size: 10px;">CS</a> <a href="/tags/Life/" style="font-size: 10px;">Life</a> <a href="/tags/ML/" style="font-size: 20px;">ML</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/database/" style="font-size: 10px;">database</a>
+      <a href="/tags/CS/" style="font-size: 10px;">CS</a> <a href="/tags/Life/" style="font-size: 10px;">Life</a> <a href="/tags/ML/" style="font-size: 20px;">ML</a> <a href="/tags/backend/" style="font-size: 10px;">backend</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/database/" style="font-size: 10px;">database</a>
     </div>
   </div>
 
