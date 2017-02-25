@@ -3,30 +3,27 @@
 <head>
   <meta charset="utf-8">
   
-  <title>mariadb replication | Journey</title>
+  <title>why-split-data-to-train-and-test-and-corss-valid? | Journey</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Linux Version:
-$root@master # uname -a
-Linux izwz92ycxa8b5h6uoxux99z 3.10.0-327.22.2.el7.x86_64 #1 SMP Thu Jun 23 17:05:11 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
-Release:
-CentOS Linux release 7.2.151">
+  <meta name="description" content="在监督学习时，我们经常会看到别人把数据分为training set和test set，究竟为何要这样做？
+数据分割如果你在使用同一组数据来训练模型，并且用同一组数据来测试模型的话，模型会给出一个相当完美的得分。但是当你将模型扩展到未知数据时，效果就差强人意了。
+这种情况叫做过拟合。
+为了避免这种情况，我们会将数据分成两部分，一部分用来训练，叫做training set， 另一部分用来测试，叫做te">
 <meta property="og:type" content="article">
-<meta property="og:title" content="mariadb replication">
-<meta property="og:url" content="http://yoursite.com/2017/02/08/mariadb-replication/index.html">
+<meta property="og:title" content="why-split-data-to-train-and-test-and-corss-valid?">
+<meta property="og:url" content="http://yoursite.com/2017/02/24/why-split-data-to-train-and-test/index.html">
 <meta property="og:site_name" content="Journey">
-<meta property="og:description" content="Linux Version:
-$root@master # uname -a
-Linux izwz92ycxa8b5h6uoxux99z 3.10.0-327.22.2.el7.x86_64 #1 SMP Thu Jun 23 17:05:11 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
-Release:
-CentOS Linux release 7.2.151">
-<meta property="og:updated_time" content="2017-02-09T09:25:17.000Z">
+<meta property="og:description" content="在监督学习时，我们经常会看到别人把数据分为training set和test set，究竟为何要这样做？
+数据分割如果你在使用同一组数据来训练模型，并且用同一组数据来测试模型的话，模型会给出一个相当完美的得分。但是当你将模型扩展到未知数据时，效果就差强人意了。
+这种情况叫做过拟合。
+为了避免这种情况，我们会将数据分成两部分，一部分用来训练，叫做training set， 另一部分用来测试，叫做te">
+<meta property="og:updated_time" content="2017-02-25T08:15:34.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="mariadb replication">
-<meta name="twitter:description" content="Linux Version:
-$root@master # uname -a
-Linux izwz92ycxa8b5h6uoxux99z 3.10.0-327.22.2.el7.x86_64 #1 SMP Thu Jun 23 17:05:11 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
-Release:
-CentOS Linux release 7.2.151">
+<meta name="twitter:title" content="why-split-data-to-train-and-test-and-corss-valid?">
+<meta name="twitter:description" content="在监督学习时，我们经常会看到别人把数据分为training set和test set，究竟为何要这样做？
+数据分割如果你在使用同一组数据来训练模型，并且用同一组数据来测试模型的话，模型会给出一个相当完美的得分。但是当你将模型扩展到未知数据时，效果就差强人意了。
+这种情况叫做过拟合。
+为了避免这种情况，我们会将数据分成两部分，一部分用来训练，叫做training set， 另一部分用来测试，叫做te">
   
     <link rel="alternate" href="/atom.xml" title="Journey" type="application/atom+xml">
   
@@ -79,10 +76,10 @@ CentOS Linux release 7.2.151">
   </div>
 </header>
       <div class="outer">
-        <section id="main"><article id="post-mariadb-replication" class="article article-type-post" itemscope itemprop="blogPost">
+        <section id="main"><article id="post-why-split-data-to-train-and-test" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
-    <a href="/2017/02/08/mariadb-replication/" class="article-date">
-  <time datetime="2017-02-08T06:49:44.000Z" itemprop="datePublished">2017-02-08</time>
+    <a href="/2017/02/24/why-split-data-to-train-and-test/" class="article-date">
+  <time datetime="2017-02-24T11:13:21.000Z" itemprop="datePublished">2017-02-24</time>
 </a>
     
   </div>
@@ -93,7 +90,7 @@ CentOS Linux release 7.2.151">
         
   
     <h1 class="article-title" itemprop="name">
-      mariadb replication
+      why-split-data-to-train-and-test-and-corss-valid?
     </h1>
   
 
@@ -101,82 +98,38 @@ CentOS Linux release 7.2.151">
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>Linux Version:</p>
-<pre><code>$root@master # uname -a
-Linux izwz92ycxa8b5h6uoxux99z 3.10.0-327.22.2.el7.x86_64 #1 SMP Thu Jun 23 17:05:11 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
-</code></pre><p>Release:</p>
-<pre><code>CentOS Linux release 7.2.1511 (Core)
-NAME=&quot;CentOS Linux&quot;
-VERSION=&quot;7 (Core)&quot;
-ID=&quot;centos&quot;
-ID_LIKE=&quot;rhel fedora&quot;
-VERSION_ID=&quot;7&quot;
-PRETTY_NAME=&quot;CentOS Linux 7 (Core)&quot;
-ANSI_COLOR=&quot;0;31&quot;
-CPE_NAME=&quot;cpe:/o:centos:centos:7&quot;
-HOME_URL=&quot;https://www.centos.org/&quot;
-BUG_REPORT_URL=&quot;https://bugs.centos.org/&quot;
-
-CENTOS_MANTISBT_PROJECT=&quot;CentOS-7&quot;
-CENTOS_MANTISBT_PROJECT_VERSION=&quot;7&quot;
-REDHAT_SUPPORT_PRODUCT=&quot;centos&quot;
-REDHAT_SUPPORT_PRODUCT_VERSION=&quot;7&quot;
-
-CentOS Linux release 7.2.1511 (Core)
-CentOS Linux release 7.2.1511 (Core)
-</code></pre><p>Install:</p>
-<pre><code>yum install mariadb-server
-systemctl enable mariadb
-systemctl start mariadb
-mysql_secure_installation
-</code></pre><h2 id="Master"><a href="#Master" class="headerlink" title="Master"></a>Master</h2><p>ChangeConfig:</p>
-<pre><code>vi /etc/my.cnf
-
-# add below 
-[mysqld]
-log-bin
-server_id=1
-log-basename=master1
-bind-address=&lt;ip address&gt;
-# socket
-</code></pre><p>CheckConfig:</p>
-<pre><code>show variables like &apos;sql_log_bin&apos;; # sql_log_bin on
-show variables like &quot;skip_networking&quot;; # sql_log_bin off
-</code></pre><p>Create Slave User:</p>
-<pre><code>grant replication slave on *.* to  xxxuser;
-</code></pre><p>CheckStatus:</p>
-<pre><code>show master status; $ record the binlog and pos
-</code></pre><h2 id="Slave"><a href="#Slave" class="headerlink" title="Slave"></a>Slave</h2><p>ChangeConfig:</p>
-<pre><code>[mysqld]
-log-bin
-server_id=2
-log-basename=slave1
-bind-address=&lt;ip address&gt;
-</code></pre><p>Config Master </p>
-<pre><code>CHANGE MASTER TO
-MASTER_HOST=&quot;&lt;ip address&gt;&quot;,
-MASTER_USER=&quot;user&quot;,
-MASTER_PASSWORD=&quot;pass&quot;,
-MASTER_PORT=3306,
-MASTER_LOG_FILE=&quot;bin_log&quot;,
-MASTER_LOG_POS=&lt;pos&gt;,
-MASTER_CONNECT_RETRY=10;
-</code></pre><p>Start Slave:</p>
-<pre><code>start slave;
-</code></pre><p>Check Status:</p>
-<pre><code>show slave status;
-</code></pre><h2 id="Refer"><a href="#Refer" class="headerlink" title="Refer"></a>Refer</h2><blockquote>
-<p><a href="https://mariadb.com/kb/en/mariadb/setting-up-replication/" target="_blank" rel="external">https://mariadb.com/kb/en/mariadb/setting-up-replication/</a></p>
-</blockquote>
+        <p>在监督学习时，我们经常会看到别人把数据分为training set和test set，究竟为何要这样做？</p>
+<h2 id="数据分割"><a href="#数据分割" class="headerlink" title="数据分割"></a>数据分割</h2><p>如果你在使用同一组数据来训练模型，并且用同一组数据来测试模型的话，模型会给出一个相当完美的得分。<br>但是当你将模型扩展到未知数据时，效果就差强人意了。</p>
+<p>这种情况叫做过拟合。</p>
+<p>为了避免这种情况，我们会将数据分成两部分，一部分用来训练，叫做training set， 另一部分用来测试，叫做test set。</p>
+<hr>
+<p>看起来似乎这样就可以解决问题了？</p>
+<p>并没有。</p>
+<p>每个模型还有一些对应的参数（hyperparameters)，当我们在测试集上调参时，我们其实不知不觉中泄露了一些测试集的信息给模型，这样还是会造成模型无法泛化。</p>
+<p>为了解决这个问题，我们还需要一部分数据，来做validation set。</p>
+<p>于是，整个流程变成了。</p>
+<p>分割数据 -&gt; training set训练 -&gt; validation set验证 -&gt; test set验证</p>
+<p>但是把原有的数据分成三份，大量的减少了用于训练的数据量。这就使模型的结果过度依赖于用于训练数据。</p>
+<h2 id="交叉验证"><a href="#交叉验证" class="headerlink" title="交叉验证"></a>交叉验证</h2><p>Cross-validation 就是用来解决这个问题。</p>
+<p>引入CV后，测试集仍旧用于最终的评估，但是我们不再需要validation-set。</p>
+<p>已k-fold CV为例，训练集被分类k个小数据集，之后用一下的方式训练模型：</p>
+<pre><code>0. 初始化一个新模型
+1. 用k-1份数据来训练模型。
+2. 用剩下的那一份数据来对模型进行验证。
+</code></pre><p>模型的总体表现用k次评估的平均值来表示。</p>
+<p>这样可以在保证训练数据量的情况下来保证模型评估的准确性。</p>
+<hr>
+<h2 id="总结"><a href="#总结" class="headerlink" title="总结"></a>总结</h2><p>在引入CV后，整个流程变为：</p>
+<p>分割数据 -&gt; cv训练、评估数据 -&gt; test set最终评估</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="http://yoursite.com/2017/02/08/mariadb-replication/" data-id="cizkz26gv000h1gholkrqggcs" class="article-share-link">Share</a>
+      <a data-url="http://yoursite.com/2017/02/24/why-split-data-to-train-and-test/" data-id="cizkz26gr000b1ghoiisnosb1" class="article-share-link">Share</a>
 
       
 <!-- 多说评论框 start -->
-  <div class="ds-thread" data-thread-key="post-mariadb-replication" data-title="mariadb replication" data-url="/2017/02/08/mariadb-replication/"></div>
+  <div class="ds-thread" data-thread-key="post-why-split-data-to-train-and-test" data-title="why-split-data-to-train-and-test-and-corss-valid?" data-url="/2017/02/24/why-split-data-to-train-and-test/"></div>
 <!-- 多说评论框 end -->
 <!-- 多说公共JS代码 start (一个网页只需插入一次) -->
 <script type="text/javascript">
@@ -194,7 +147,7 @@ var duoshuoQuery = {short_name:"kidjourney"};
 
 
       
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/database/">database</a></li></ul>
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ML/">ML</a></li></ul>
 
     </footer>
   </div>
@@ -202,19 +155,10 @@ var duoshuoQuery = {short_name:"kidjourney"};
     
 <nav id="article-nav">
   
-    <a href="/2017/02/13/self-analysis/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
-      <div class="article-nav-title">
-        
-          self_analysis
-        
-      </div>
-    </a>
   
-  
-    <a href="/2017/01/28/hello-world/" id="article-nav-older" class="article-nav-link-wrap">
+    <a href="/2017/02/24/Classic-And-Old-Class/" id="article-nav-older" class="article-nav-link-wrap">
       <strong class="article-nav-caption">Older</strong>
-      <div class="article-nav-title">Hello World</div>
+      <div class="article-nav-title">Classic-And-Old-Class</div>
     </a>
   
 </nav>
