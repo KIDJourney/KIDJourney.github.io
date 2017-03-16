@@ -3,14 +3,36 @@
 <head>
   <meta charset="utf-8">
   
-  <title>Tag: backend | Journey</title>
+  <title>写时复制 | Journey</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta property="og:type" content="website">
-<meta property="og:title" content="Journey">
-<meta property="og:url" content="https://kidjourney.github.io/tags/backend/index.html">
+  <meta name="description" content="Copy on Write写时复制，有时也被叫做隐式内存共享，或者shadowing，是一种高效的内存管理机制。他的主要思想如下。
+
+如果资源需要被复制但是没有修改，那就没必要真的复制。
+
+这种机制可以明显的降低不作修改的复制操作，但是会给需要修改的复制操作带来一些性能损耗。
+instagram 案例分析
+Source: instagram">
+<meta property="og:type" content="article">
+<meta property="og:title" content="写时复制">
+<meta property="og:url" content="https://kidjourney.github.io/2017/03/02/copy-on-write/index.html">
 <meta property="og:site_name" content="Journey">
+<meta property="og:description" content="Copy on Write写时复制，有时也被叫做隐式内存共享，或者shadowing，是一种高效的内存管理机制。他的主要思想如下。
+
+如果资源需要被复制但是没有修改，那就没必要真的复制。
+
+这种机制可以明显的降低不作修改的复制操作，但是会给需要修改的复制操作带来一些性能损耗。
+instagram 案例分析
+Source: instagram">
+<meta property="og:updated_time" content="2017-03-07T09:41:20.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="Journey">
+<meta name="twitter:title" content="写时复制">
+<meta name="twitter:description" content="Copy on Write写时复制，有时也被叫做隐式内存共享，或者shadowing，是一种高效的内存管理机制。他的主要思想如下。
+
+如果资源需要被复制但是没有修改，那就没必要真的复制。
+
+这种机制可以明显的降低不作修改的复制操作，但是会给需要修改的复制操作带来一些性能损耗。
+instagram 案例分析
+Source: instagram">
   
     <link rel="alternate" href="/atom.xml" title="Journey" type="application/atom+xml">
   
@@ -63,39 +85,89 @@
   </div>
 </header>
       <div class="outer">
-        <section id="main">
-  
-  
-    
-    
-      
-      
-      <section class="archives-wrap">
-        <div class="archive-year-wrap">
-          <a href="/archives/2017" class="archive-year">2017</a>
-        </div>
-        <div class="archives">
-    
-    <article class="archive-article archive-type-post">
-  <div class="archive-article-inner">
-    <header class="archive-article-header">
-      <a href="/2017/02/21/backend-performance-profile/" class="archive-article-date">
-  <time datetime="2017-02-21T07:19:42.000Z" itemprop="datePublished">Feb 21</time>
+        <section id="main"><article id="post-copy-on-write" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/02/copy-on-write/" class="article-date">
+  <time datetime="2017-03-02T13:37:45.000Z" itemprop="datePublished">2017-03-02</time>
 </a>
-      
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
   
-    <h1 itemprop="name">
-      <a class="archive-article-title" href="/2017/02/21/backend-performance-profile/">backend-performance-profile</a>
+    <h1 class="article-title" itemprop="name">
+      写时复制
     </h1>
   
 
-    </header>
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Copy-on-Write"><a href="#Copy-on-Write" class="headerlink" title="Copy on Write"></a>Copy on Write</h1><p>写时复制，有时也被叫做隐式内存共享，或者shadowing，是一种高效的内存管理机制。<br>他的主要思想如下。</p>
+<blockquote>
+<p>如果资源需要被复制但是没有修改，那就没必要真的复制。</p>
+</blockquote>
+<p>这种机制可以明显的降低不作修改的复制操作，但是会给需要修改的复制操作带来一些性能损耗。</p>
+<h2 id="instagram-案例分析"><a href="#instagram-案例分析" class="headerlink" title="instagram 案例分析"></a>instagram 案例分析</h2><blockquote>
+<p>Source: <a href="https://engineering.instagram.com/dismissing-python-garbage-collection-at-instagram-4dca40b29172#.b64qv6k8w" target="_blank" rel="external">instagram</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://kidjourney.github.io/2017/03/02/copy-on-write/index.html" data-id="cj0bynf420003559tohw6pckf" class="article-share-link">Share</a>
+
+      
+<!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="post-copy-on-write" data-title="写时复制" data-url="https://kidjourney.github.io/2017/03/02/copy-on-write/index.html"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"kidjourney"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共JS代码 end -->
+
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li></ul>
+
+    </footer>
   </div>
+  
+    
+<nav id="article-nav">
+  
+    <a href="/2017/03/16/mongodb-Replica-Set-Deployment-Architectures/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Newer</strong>
+      <div class="article-nav-title">
+        
+          mongodb_Replica_Set_Deployment_Architectures
+        
+      </div>
+    </a>
+  
+  
+    <a href="/2017/02/24/why-split-data-to-train-and-test/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">为什么要分割数据以及交叉验证？</div>
+    </a>
+  
+</nav>
+
+  
 </article>
-  
-  
-    </div></section>
-  
 
 </section>
         

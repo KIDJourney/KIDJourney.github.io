@@ -65,6 +65,153 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-self-analysis" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/02/13/self-analysis/" class="article-date">
+  <time datetime="2017-02-13T03:32:30.000Z" itemprop="datePublished">2017-02-13</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/13/self-analysis/">self_analysis</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Weak-self-confidence"><a href="#Weak-self-confidence" class="headerlink" title="Weak self-confidence:"></a>Weak self-confidence:</h2><p>Excepting when meeting someone I am far more better than, I will give up my opinion very easily.</p>
+<h2 id="Teetering-Knowledge"><a href="#Teetering-Knowledge" class="headerlink" title="Teetering Knowledge"></a>Teetering Knowledge</h2><p>I can write, I can make it run. But sometime i can’t exactly tell why it goes like that. Experence relay.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://kidjourney.github.io/page/2/index.html" data-id="cj0bynf4g000h559t7lrljuau" class="article-share-link">Share</a>
+
+      
+
+      
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-mariadb-replication" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/02/08/mariadb-replication/" class="article-date">
+  <time datetime="2017-02-08T06:49:44.000Z" itemprop="datePublished">2017-02-08</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/08/mariadb-replication/">mariadb replication</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>Linux Version:</p>
+<pre><code>$root@master # uname -a
+Linux izwz92ycxa8b5h6uoxux99z 3.10.0-327.22.2.el7.x86_64 #1 SMP Thu Jun 23 17:05:11 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
+</code></pre><p>Release:</p>
+<pre><code>CentOS Linux release 7.2.1511 (Core)
+NAME=&quot;CentOS Linux&quot;
+VERSION=&quot;7 (Core)&quot;
+ID=&quot;centos&quot;
+ID_LIKE=&quot;rhel fedora&quot;
+VERSION_ID=&quot;7&quot;
+PRETTY_NAME=&quot;CentOS Linux 7 (Core)&quot;
+ANSI_COLOR=&quot;0;31&quot;
+CPE_NAME=&quot;cpe:/o:centos:centos:7&quot;
+HOME_URL=&quot;https://www.centos.org/&quot;
+BUG_REPORT_URL=&quot;https://bugs.centos.org/&quot;
+
+CENTOS_MANTISBT_PROJECT=&quot;CentOS-7&quot;
+CENTOS_MANTISBT_PROJECT_VERSION=&quot;7&quot;
+REDHAT_SUPPORT_PRODUCT=&quot;centos&quot;
+REDHAT_SUPPORT_PRODUCT_VERSION=&quot;7&quot;
+
+CentOS Linux release 7.2.1511 (Core)
+CentOS Linux release 7.2.1511 (Core)
+</code></pre><p>Install:</p>
+<pre><code>yum install mariadb-server
+systemctl enable mariadb
+systemctl start mariadb
+mysql_secure_installation
+</code></pre><h2 id="Master"><a href="#Master" class="headerlink" title="Master"></a>Master</h2><p>ChangeConfig:</p>
+<pre><code>vi /etc/my.cnf
+
+# add below 
+[mysqld]
+log-bin
+server_id=1
+log-basename=master1
+bind-address=&lt;ip address&gt;
+# socket
+</code></pre><p>CheckConfig:</p>
+<pre><code>show variables like &apos;sql_log_bin&apos;; # sql_log_bin on
+show variables like &quot;skip_networking&quot;; # sql_log_bin off
+</code></pre><p>Create Slave User:</p>
+<pre><code>grant replication slave on *.* to  xxxuser;
+</code></pre><p>CheckStatus:</p>
+<pre><code>show master status; $ record the binlog and pos
+</code></pre><h2 id="Slave"><a href="#Slave" class="headerlink" title="Slave"></a>Slave</h2><p>ChangeConfig:</p>
+<pre><code>[mysqld]
+log-bin
+server_id=2
+log-basename=slave1
+bind-address=&lt;ip address&gt;
+</code></pre><p>Config Master </p>
+<pre><code>CHANGE MASTER TO
+MASTER_HOST=&quot;&lt;ip address&gt;&quot;,
+MASTER_USER=&quot;user&quot;,
+MASTER_PASSWORD=&quot;pass&quot;,
+MASTER_PORT=3306,
+MASTER_LOG_FILE=&quot;bin_log&quot;,
+MASTER_LOG_POS=&lt;pos&gt;,
+MASTER_CONNECT_RETRY=10;
+</code></pre><p>Start Slave:</p>
+<pre><code>start slave;
+</code></pre><p>Check Status:</p>
+<pre><code>show slave status;
+</code></pre><h2 id="Refer"><a href="#Refer" class="headerlink" title="Refer"></a>Refer</h2><blockquote>
+<p><a href="https://mariadb.com/kb/en/mariadb/setting-up-replication/" target="_blank" rel="external">https://mariadb.com/kb/en/mariadb/setting-up-replication/</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://kidjourney.github.io/page/2/index.html" data-id="cj0bynf4e000d559tdk6bdczn" class="article-share-link">Share</a>
+
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/database/">database</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/01/28/hello-world/" class="article-date">
@@ -100,7 +247,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/page/2/index.html" data-id="cizozubks0005uw9tln9pis0c" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/page/2/index.html" data-id="cj0bynf490009559to21lxqdt" class="article-share-link">Share</a>
 
       
 
@@ -128,7 +275,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CS/">CS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ML/">ML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backend/">backend</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CS/">CS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataBase/">DataBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ML/">ML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backend/">backend</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li></ul>
     </div>
   </div>
 
@@ -138,7 +285,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/CS/" style="font-size: 10px;">CS</a> <a href="/tags/Life/" style="font-size: 10px;">Life</a> <a href="/tags/ML/" style="font-size: 20px;">ML</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/backend/" style="font-size: 10px;">backend</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/database/" style="font-size: 10px;">database</a>
+      <a href="/tags/CS/" style="font-size: 15px;">CS</a> <a href="/tags/DataBase/" style="font-size: 10px;">DataBase</a> <a href="/tags/Life/" style="font-size: 10px;">Life</a> <a href="/tags/ML/" style="font-size: 20px;">ML</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/backend/" style="font-size: 10px;">backend</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/database/" style="font-size: 10px;">database</a>
     </div>
   </div>
 
@@ -147,7 +294,7 @@
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li></ul>
     </div>
   </div>
 
@@ -160,6 +307,14 @@
       <ul>
         
           <li>
+            <a href="/2017/03/16/mongodb-Replica-Set-Deployment-Architectures/">mongodb_Replica_Set_Deployment_Architectures</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/02/copy-on-write/">写时复制</a>
+          </li>
+        
+          <li>
             <a href="/2017/02/24/why-split-data-to-train-and-test/">为什么要分割数据以及交叉验证？</a>
           </li>
         
@@ -169,14 +324,6 @@
         
           <li>
             <a href="/2017/02/21/backend-performance-profile/">backend-performance-profile</a>
-          </li>
-        
-          <li>
-            <a href="/2017/02/17/about-encoding/">about_encoding</a>
-          </li>
-        
-          <li>
-            <a href="/2017/02/16/bias-and-variance/">bias-and-variance</a>
           </li>
         
       </ul>

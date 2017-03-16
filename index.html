@@ -65,6 +65,150 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-mongodb-Replica-Set-Deployment-Architectures" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/16/mongodb-Replica-Set-Deployment-Architectures/" class="article-date">
+  <time datetime="2017-03-16T05:33:03.000Z" itemprop="datePublished">2017-03-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/16/mongodb-Replica-Set-Deployment-Architectures/">mongodb_Replica_Set_Deployment_Architectures</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="策略"><a href="#策略" class="headerlink" title="策略"></a>策略</h1><h2 id="成员数量"><a href="#成员数量" class="headerlink" title="成员数量"></a>成员数量</h2><h3 id="最大投票成员："><a href="#最大投票成员：" class="headerlink" title="最大投票成员："></a>最大投票成员：</h3><p>一个复制集群最多可以有50个成员，但是最多只能有7个可投票成员。</p>
+<h3 id="成员数："><a href="#成员数：" class="headerlink" title="成员数："></a>成员数：</h3><p>成员数应为奇数，偶数集群应该添加仲裁（Arbiter）节点。</p>
+<p>仲裁节点不保存数据，占用资源更少。</p>
+<h3 id="容错："><a href="#容错：" class="headerlink" title="容错："></a>容错：</h3><table>
+<thead>
+<tr>
+<th>成员数</th>
+<th>可进行投票的最小成员数量</th>
+<th>可容忍错误数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>4</td>
+<td>3</td>
+<td>1</td>
+</tr>
+<tr>
+<td>5</td>
+<td>3</td>
+<td>2</td>
+</tr>
+<tr>
+<td>6</td>
+<td>4</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<h3 id="特殊功能成员"><a href="#特殊功能成员" class="headerlink" title="特殊功能成员"></a>特殊功能成员</h3><p>hidden和delayed成员，可实现特殊功能，如备份或者报警。</p>
+<h2 id="影响选举的因素"><a href="#影响选举的因素" class="headerlink" title="影响选举的因素"></a>影响选举的因素</h2><h3 id="选举协议"><a href="#选举协议" class="headerlink" title="选举协议"></a>选举协议</h3><p>在3.2之后，mongodb使用<code>protocolVersion：1</code>作为选举协议。</p>
+<h3 id="心跳"><a href="#心跳" class="headerlink" title="心跳"></a>心跳</h3><p>每个成员每两秒会发送一个心跳请求到所有成员，如果10秒内没有回应，会被发送心跳的成员标记为不可达。</p>
+<h3 id="成员优先级"><a href="#成员优先级" class="headerlink" title="成员优先级"></a>成员优先级</h3><p>就算复制集群已经有主节点后，选举算法也会尽可能的让优先级最高的从节点发起新的选举。<br>拥有高优先级的从节点相比那些优先级较低的，会更频繁的提出选举请求，并且更有可能被选举为主节点。</p>
+<p>低优先级从节点也有可能被选举为主节点，但是高优先级的从节点会很快发出新的请求，从而代替低优先级的节点成为主节点。</p>
+<h3 id="网络隔离。"><a href="#网络隔离。" class="headerlink" title="网络隔离。"></a>网络隔离。</h3><p>当主节点与少数节点被网络隔离时，主节点会主动退位，变为从节点。同时，一个能与大部分节点连接的节点会发起投票从而选出新的主节点。</p>
+<h3 id="否决"><a href="#否决" class="headerlink" title="否决"></a>否决</h3><p>ProtocolVersion 1中取消了否决票，详见<a href="https://docs.mongodb.com/manual/core/replica-set-elections/#vetoes-in-elections" target="_blank" rel="external">Vetos</a>。</p>
+<h3 id="投票成员"><a href="#投票成员" class="headerlink" title="投票成员"></a>投票成员</h3><p>复制集群通过<code>members[n].votes</code>属性与成员状态<code>state</code>来判断一个成员是否可以参与投票。</p>
+<p>Vote:3.2：</p>
+<ul>
+<li>不可投票的成员<code>votes</code>为0，<code>priority</code>为0，</li>
+<li><code>priority</code>为0的成员<code>votes</code>不能为0.</li>
+</ul>
+<p>State:<br>只有一下状态的成员可以参与投票。</p>
+<ul>
+<li>PRIMARY</li>
+<li>SECONDARY</li>
+<li>RECOVERING</li>
+<li>ARBITER</li>
+<li>ROLLBACK</li>
+</ul>
+<h3 id="跨数据中心部署。"><a href="#跨数据中心部署。" class="headerlink" title="跨数据中心部署。"></a>跨数据中心部署。</h3><p>官方建议将节点部署在不同的数据中心，以防止核弹摧毁数据中心。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://kidjourney.github.io/index.html" data-id="cj0bynf4d000b559tj1kh21zz" class="article-share-link">Share</a>
+
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DataBase/">DataBase</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-copy-on-write" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/02/copy-on-write/" class="article-date">
+  <time datetime="2017-03-02T13:37:45.000Z" itemprop="datePublished">2017-03-02</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/03/02/copy-on-write/">写时复制</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="Copy-on-Write"><a href="#Copy-on-Write" class="headerlink" title="Copy on Write"></a>Copy on Write</h1><p>写时复制，有时也被叫做隐式内存共享，或者shadowing，是一种高效的内存管理机制。<br>他的主要思想如下。</p>
+<blockquote>
+<p>如果资源需要被复制但是没有修改，那就没必要真的复制。</p>
+</blockquote>
+<p>这种机制可以明显的降低不作修改的复制操作，但是会给需要修改的复制操作带来一些性能损耗。</p>
+<h2 id="instagram-案例分析"><a href="#instagram-案例分析" class="headerlink" title="instagram 案例分析"></a>instagram 案例分析</h2><blockquote>
+<p>Source: <a href="https://engineering.instagram.com/dismissing-python-garbage-collection-at-instagram-4dca40b29172#.b64qv6k8w" target="_blank" rel="external">instagram</a></p>
+</blockquote>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://kidjourney.github.io/index.html" data-id="cj0bynf420003559tohw6pckf" class="article-share-link">Share</a>
+
+      
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-why-split-data-to-train-and-test" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/02/24/why-split-data-to-train-and-test/" class="article-date">
@@ -114,7 +258,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/index.html" data-id="cizozubl5000huw9tbse9un83" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/index.html" data-id="cj0bynf4k000l559tn53kfbei" class="article-share-link">Share</a>
 
       
 
@@ -159,7 +303,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/index.html" data-id="cizozubkk0001uw9ttv9pc8a3" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/index.html" data-id="cj0bynf3w0001559tp7za0knk" class="article-share-link">Share</a>
 
       
 
@@ -315,7 +459,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/index.html" data-id="cizozubkq0004uw9t1ns6yuqy" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/index.html" data-id="cj0bynf430004559tmhxj1nha" class="article-share-link">Share</a>
 
       
 
@@ -384,7 +528,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/index.html" data-id="cizozubkp0003uw9t6bjsxwp7" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/index.html" data-id="cj0bynf460005559tgeahr4zf" class="article-share-link">Share</a>
 
       
 
@@ -430,7 +574,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/index.html" data-id="cizozubkw0008uw9tikepcoaa" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/index.html" data-id="cj0bynf480008559t9o5j6cr1" class="article-share-link">Share</a>
 
       
 
@@ -487,7 +631,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/index.html" data-id="cizozubky0009uw9tap0vfxkg" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/index.html" data-id="cj0bynf4e000f559tfxeq1avp" class="article-share-link">Share</a>
 
       
 
@@ -529,7 +673,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/index.html" data-id="cizozubkg0000uw9t4p14416f" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/index.html" data-id="cj0bynf3t0000559tx1l1goeo" class="article-share-link">Share</a>
 
       
 
@@ -616,159 +760,12 @@ E     未检索到   C    D
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/index.html" data-id="cizozubl2000duw9t5wjiltht" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/index.html" data-id="cj0bynf4h000j559tyirmhnq7" class="article-share-link">Share</a>
 
       
 
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ML/">ML</a></li></ul>
-
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-self-analysis" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/02/13/self-analysis/" class="article-date">
-  <time datetime="2017-02-13T03:32:30.000Z" itemprop="datePublished">2017-02-13</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/13/self-analysis/">self_analysis</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <h2 id="Weak-self-confidence"><a href="#Weak-self-confidence" class="headerlink" title="Weak self-confidence:"></a>Weak self-confidence:</h2><p>Excepting when meeting someone I am far more better than, I will give up my opinion very easily.</p>
-<h2 id="Teetering-Knowledge"><a href="#Teetering-Knowledge" class="headerlink" title="Teetering Knowledge"></a>Teetering Knowledge</h2><p>I can write, I can make it run. But sometime i can’t exactly tell why it goes like that. Experence relay.</p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/index.html" data-id="cizozubl4000fuw9trhjnly0v" class="article-share-link">Share</a>
-
-      
-
-      
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-mariadb-replication" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/02/08/mariadb-replication/" class="article-date">
-  <time datetime="2017-02-08T06:49:44.000Z" itemprop="datePublished">2017-02-08</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/02/08/mariadb-replication/">mariadb replication</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Linux Version:</p>
-<pre><code>$root@master # uname -a
-Linux izwz92ycxa8b5h6uoxux99z 3.10.0-327.22.2.el7.x86_64 #1 SMP Thu Jun 23 17:05:11 UTC 2016 x86_64 x86_64 x86_64 GNU/Linux
-</code></pre><p>Release:</p>
-<pre><code>CentOS Linux release 7.2.1511 (Core)
-NAME=&quot;CentOS Linux&quot;
-VERSION=&quot;7 (Core)&quot;
-ID=&quot;centos&quot;
-ID_LIKE=&quot;rhel fedora&quot;
-VERSION_ID=&quot;7&quot;
-PRETTY_NAME=&quot;CentOS Linux 7 (Core)&quot;
-ANSI_COLOR=&quot;0;31&quot;
-CPE_NAME=&quot;cpe:/o:centos:centos:7&quot;
-HOME_URL=&quot;https://www.centos.org/&quot;
-BUG_REPORT_URL=&quot;https://bugs.centos.org/&quot;
-
-CENTOS_MANTISBT_PROJECT=&quot;CentOS-7&quot;
-CENTOS_MANTISBT_PROJECT_VERSION=&quot;7&quot;
-REDHAT_SUPPORT_PRODUCT=&quot;centos&quot;
-REDHAT_SUPPORT_PRODUCT_VERSION=&quot;7&quot;
-
-CentOS Linux release 7.2.1511 (Core)
-CentOS Linux release 7.2.1511 (Core)
-</code></pre><p>Install:</p>
-<pre><code>yum install mariadb-server
-systemctl enable mariadb
-systemctl start mariadb
-mysql_secure_installation
-</code></pre><h2 id="Master"><a href="#Master" class="headerlink" title="Master"></a>Master</h2><p>ChangeConfig:</p>
-<pre><code>vi /etc/my.cnf
-
-# add below 
-[mysqld]
-log-bin
-server_id=1
-log-basename=master1
-bind-address=&lt;ip address&gt;
-# socket
-</code></pre><p>CheckConfig:</p>
-<pre><code>show variables like &apos;sql_log_bin&apos;; # sql_log_bin on
-show variables like &quot;skip_networking&quot;; # sql_log_bin off
-</code></pre><p>Create Slave User:</p>
-<pre><code>grant replication slave on *.* to  xxxuser;
-</code></pre><p>CheckStatus:</p>
-<pre><code>show master status; $ record the binlog and pos
-</code></pre><h2 id="Slave"><a href="#Slave" class="headerlink" title="Slave"></a>Slave</h2><p>ChangeConfig:</p>
-<pre><code>[mysqld]
-log-bin
-server_id=2
-log-basename=slave1
-bind-address=&lt;ip address&gt;
-</code></pre><p>Config Master </p>
-<pre><code>CHANGE MASTER TO
-MASTER_HOST=&quot;&lt;ip address&gt;&quot;,
-MASTER_USER=&quot;user&quot;,
-MASTER_PASSWORD=&quot;pass&quot;,
-MASTER_PORT=3306,
-MASTER_LOG_FILE=&quot;bin_log&quot;,
-MASTER_LOG_POS=&lt;pos&gt;,
-MASTER_CONNECT_RETRY=10;
-</code></pre><p>Start Slave:</p>
-<pre><code>start slave;
-</code></pre><p>Check Status:</p>
-<pre><code>show slave status;
-</code></pre><h2 id="Refer"><a href="#Refer" class="headerlink" title="Refer"></a>Refer</h2><blockquote>
-<p><a href="https://mariadb.com/kb/en/mariadb/setting-up-replication/" target="_blank" rel="external">https://mariadb.com/kb/en/mariadb/setting-up-replication/</a></p>
-</blockquote>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/index.html" data-id="cizozubl2000buw9tvqqmvxzr" class="article-share-link">Share</a>
-
-      
-
-      
-  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/database/">database</a></li></ul>
 
     </footer>
   </div>
@@ -793,7 +790,7 @@ MASTER_CONNECT_RETRY=10;
   <div class="widget-wrap">
     <h3 class="widget-title">Tags</h3>
     <div class="widget">
-      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CS/">CS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ML/">ML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backend/">backend</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li></ul>
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CS/">CS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataBase/">DataBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ML/">ML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backend/">backend</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li></ul>
     </div>
   </div>
 
@@ -803,7 +800,7 @@ MASTER_CONNECT_RETRY=10;
   <div class="widget-wrap">
     <h3 class="widget-title">Tag Cloud</h3>
     <div class="widget tagcloud">
-      <a href="/tags/CS/" style="font-size: 10px;">CS</a> <a href="/tags/Life/" style="font-size: 10px;">Life</a> <a href="/tags/ML/" style="font-size: 20px;">ML</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/backend/" style="font-size: 10px;">backend</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/database/" style="font-size: 10px;">database</a>
+      <a href="/tags/CS/" style="font-size: 15px;">CS</a> <a href="/tags/DataBase/" style="font-size: 10px;">DataBase</a> <a href="/tags/Life/" style="font-size: 10px;">Life</a> <a href="/tags/ML/" style="font-size: 20px;">ML</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/backend/" style="font-size: 10px;">backend</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/database/" style="font-size: 10px;">database</a>
     </div>
   </div>
 
@@ -812,7 +809,7 @@ MASTER_CONNECT_RETRY=10;
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li></ul>
     </div>
   </div>
 
@@ -825,6 +822,14 @@ MASTER_CONNECT_RETRY=10;
       <ul>
         
           <li>
+            <a href="/2017/03/16/mongodb-Replica-Set-Deployment-Architectures/">mongodb_Replica_Set_Deployment_Architectures</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/02/copy-on-write/">写时复制</a>
+          </li>
+        
+          <li>
             <a href="/2017/02/24/why-split-data-to-train-and-test/">为什么要分割数据以及交叉验证？</a>
           </li>
         
@@ -834,14 +839,6 @@ MASTER_CONNECT_RETRY=10;
         
           <li>
             <a href="/2017/02/21/backend-performance-profile/">backend-performance-profile</a>
-          </li>
-        
-          <li>
-            <a href="/2017/02/17/about-encoding/">about_encoding</a>
-          </li>
-        
-          <li>
-            <a href="/2017/02/16/bias-and-variance/">bias-and-variance</a>
           </li>
         
       </ul>

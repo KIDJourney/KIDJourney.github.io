@@ -1,0 +1,396 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <meta charset="utf-8">
+  
+  <title>mongodb_Replica_Set_Deployment_Architectures | Journey</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
+  <meta name="description" content="策略成员数量最大投票成员：一个复制集群最多可以有50个成员，但是最多只能有7个可投票成员。
+成员数：成员数应为奇数，偶数集群应该添加仲裁（Arbiter）节点。
+仲裁节点不保存数据，占用资源更少。
+容错：
+
+
+成员数
+可进行投票的最小成员数量
+可容忍错误数
+
+
+
+
+3
+2
+1
+
+
+4
+3
+1
+
+
+5
+3
+2
+
+
+6
+4
+2
+
+
+
+特殊功能成员hidden和delayed成员，可实现特殊功能，如备份">
+<meta property="og:type" content="article">
+<meta property="og:title" content="mongodb_Replica_Set_Deployment_Architectures">
+<meta property="og:url" content="https://kidjourney.github.io/2017/03/16/mongodb-Replica-Set-Deployment-Architectures/index.html">
+<meta property="og:site_name" content="Journey">
+<meta property="og:description" content="策略成员数量最大投票成员：一个复制集群最多可以有50个成员，但是最多只能有7个可投票成员。
+成员数：成员数应为奇数，偶数集群应该添加仲裁（Arbiter）节点。
+仲裁节点不保存数据，占用资源更少。
+容错：
+
+
+成员数
+可进行投票的最小成员数量
+可容忍错误数
+
+
+
+
+3
+2
+1
+
+
+4
+3
+1
+
+
+5
+3
+2
+
+
+6
+4
+2
+
+
+
+特殊功能成员hidden和delayed成员，可实现特殊功能，如备份">
+<meta property="og:updated_time" content="2017-03-16T05:33:52.000Z">
+<meta name="twitter:card" content="summary">
+<meta name="twitter:title" content="mongodb_Replica_Set_Deployment_Architectures">
+<meta name="twitter:description" content="策略成员数量最大投票成员：一个复制集群最多可以有50个成员，但是最多只能有7个可投票成员。
+成员数：成员数应为奇数，偶数集群应该添加仲裁（Arbiter）节点。
+仲裁节点不保存数据，占用资源更少。
+容错：
+
+
+成员数
+可进行投票的最小成员数量
+可容忍错误数
+
+
+
+
+3
+2
+1
+
+
+4
+3
+1
+
+
+5
+3
+2
+
+
+6
+4
+2
+
+
+
+特殊功能成员hidden和delayed成员，可实现特殊功能，如备份">
+  
+    <link rel="alternate" href="/atom.xml" title="Journey" type="application/atom+xml">
+  
+  
+    <link rel="icon" href="/favicon.png">
+  
+  
+    <link href="//fonts.googleapis.com/css?family=Source+Code+Pro" rel="stylesheet" type="text/css">
+  
+  <link rel="stylesheet" href="/css/style.css">
+  
+
+</head>
+
+<body>
+  <div id="container">
+    <div id="wrap">
+      <header id="header">
+  <div id="banner"></div>
+  <div id="header-outer" class="outer">
+    <div id="header-title" class="inner">
+      <h1 id="logo-wrap">
+        <a href="/" id="logo">Journey</a>
+      </h1>
+      
+        <h2 id="subtitle-wrap">
+          <a href="/" id="subtitle">And the journey still goes on</a>
+        </h2>
+      
+    </div>
+    <div id="header-inner" class="inner">
+      <nav id="main-nav">
+        <a id="main-nav-toggle" class="nav-icon"></a>
+        
+          <a class="main-nav-link" href="/">Home</a>
+        
+          <a class="main-nav-link" href="/archives">Archives</a>
+        
+      </nav>
+      <nav id="sub-nav">
+        
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+        
+        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+      </nav>
+      <div id="search-form-wrap">
+        <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://kidjourney.github.io"></form>
+      </div>
+    </div>
+  </div>
+</header>
+      <div class="outer">
+        <section id="main"><article id="post-mongodb-Replica-Set-Deployment-Architectures" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/03/16/mongodb-Replica-Set-Deployment-Architectures/" class="article-date">
+  <time datetime="2017-03-16T05:33:03.000Z" itemprop="datePublished">2017-03-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 class="article-title" itemprop="name">
+      mongodb_Replica_Set_Deployment_Architectures
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h1 id="策略"><a href="#策略" class="headerlink" title="策略"></a>策略</h1><h2 id="成员数量"><a href="#成员数量" class="headerlink" title="成员数量"></a>成员数量</h2><h3 id="最大投票成员："><a href="#最大投票成员：" class="headerlink" title="最大投票成员："></a>最大投票成员：</h3><p>一个复制集群最多可以有50个成员，但是最多只能有7个可投票成员。</p>
+<h3 id="成员数："><a href="#成员数：" class="headerlink" title="成员数："></a>成员数：</h3><p>成员数应为奇数，偶数集群应该添加仲裁（Arbiter）节点。</p>
+<p>仲裁节点不保存数据，占用资源更少。</p>
+<h3 id="容错："><a href="#容错：" class="headerlink" title="容错："></a>容错：</h3><table>
+<thead>
+<tr>
+<th>成员数</th>
+<th>可进行投票的最小成员数量</th>
+<th>可容忍错误数</th>
+</tr>
+</thead>
+<tbody>
+<tr>
+<td>3</td>
+<td>2</td>
+<td>1</td>
+</tr>
+<tr>
+<td>4</td>
+<td>3</td>
+<td>1</td>
+</tr>
+<tr>
+<td>5</td>
+<td>3</td>
+<td>2</td>
+</tr>
+<tr>
+<td>6</td>
+<td>4</td>
+<td>2</td>
+</tr>
+</tbody>
+</table>
+<h3 id="特殊功能成员"><a href="#特殊功能成员" class="headerlink" title="特殊功能成员"></a>特殊功能成员</h3><p>hidden和delayed成员，可实现特殊功能，如备份或者报警。</p>
+<h2 id="影响选举的因素"><a href="#影响选举的因素" class="headerlink" title="影响选举的因素"></a>影响选举的因素</h2><h3 id="选举协议"><a href="#选举协议" class="headerlink" title="选举协议"></a>选举协议</h3><p>在3.2之后，mongodb使用<code>protocolVersion：1</code>作为选举协议。</p>
+<h3 id="心跳"><a href="#心跳" class="headerlink" title="心跳"></a>心跳</h3><p>每个成员每两秒会发送一个心跳请求到所有成员，如果10秒内没有回应，会被发送心跳的成员标记为不可达。</p>
+<h3 id="成员优先级"><a href="#成员优先级" class="headerlink" title="成员优先级"></a>成员优先级</h3><p>就算复制集群已经有主节点后，选举算法也会尽可能的让优先级最高的从节点发起新的选举。<br>拥有高优先级的从节点相比那些优先级较低的，会更频繁的提出选举请求，并且更有可能被选举为主节点。</p>
+<p>低优先级从节点也有可能被选举为主节点，但是高优先级的从节点会很快发出新的请求，从而代替低优先级的节点成为主节点。</p>
+<h3 id="网络隔离。"><a href="#网络隔离。" class="headerlink" title="网络隔离。"></a>网络隔离。</h3><p>当主节点与少数节点被网络隔离时，主节点会主动退位，变为从节点。同时，一个能与大部分节点连接的节点会发起投票从而选出新的主节点。</p>
+<h3 id="否决"><a href="#否决" class="headerlink" title="否决"></a>否决</h3><p>ProtocolVersion 1中取消了否决票，详见<a href="https://docs.mongodb.com/manual/core/replica-set-elections/#vetoes-in-elections" target="_blank" rel="external">Vetos</a>。</p>
+<h3 id="投票成员"><a href="#投票成员" class="headerlink" title="投票成员"></a>投票成员</h3><p>复制集群通过<code>members[n].votes</code>属性与成员状态<code>state</code>来判断一个成员是否可以参与投票。</p>
+<p>Vote:3.2：</p>
+<ul>
+<li>不可投票的成员<code>votes</code>为0，<code>priority</code>为0，</li>
+<li><code>priority</code>为0的成员<code>votes</code>不能为0.</li>
+</ul>
+<p>State:<br>只有一下状态的成员可以参与投票。</p>
+<ul>
+<li>PRIMARY</li>
+<li>SECONDARY</li>
+<li>RECOVERING</li>
+<li>ARBITER</li>
+<li>ROLLBACK</li>
+</ul>
+<h3 id="跨数据中心部署。"><a href="#跨数据中心部署。" class="headerlink" title="跨数据中心部署。"></a>跨数据中心部署。</h3><p>官方建议将节点部署在不同的数据中心，以防止核弹摧毁数据中心。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://kidjourney.github.io/2017/03/16/mongodb-Replica-Set-Deployment-Architectures/index.html" data-id="cj0bynf4d000b559tj1kh21zz" class="article-share-link">Share</a>
+
+      
+<!-- 多说评论框 start -->
+  <div class="ds-thread" data-thread-key="post-mongodb-Replica-Set-Deployment-Architectures" data-title="mongodb_Replica_Set_Deployment_Architectures" data-url="https://kidjourney.github.io/2017/03/16/mongodb-Replica-Set-Deployment-Architectures/index.html"></div>
+<!-- 多说评论框 end -->
+<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
+<script type="text/javascript">
+var duoshuoQuery = {short_name:"kidjourney"};
+  (function() {
+    var ds = document.createElement('script');
+    ds.type = 'text/javascript';ds.async = true;
+    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
+    ds.charset = 'UTF-8';
+    (document.getElementsByTagName('head')[0] 
+     || document.getElementsByTagName('body')[0]).appendChild(ds);
+  })();
+  </script>
+<!-- 多说公共JS代码 end -->
+
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DataBase/">DataBase</a></li></ul>
+
+    </footer>
+  </div>
+  
+    
+<nav id="article-nav">
+  
+  
+    <a href="/2017/03/02/copy-on-write/" id="article-nav-older" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Older</strong>
+      <div class="article-nav-title">写时复制</div>
+    </a>
+  
+</nav>
+
+  
+</article>
+
+</section>
+        
+          <aside id="sidebar">
+  
+    
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tags</h3>
+    <div class="widget">
+      <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CS/">CS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataBase/">DataBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ML/">ML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backend/">backend</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Tag Cloud</h3>
+    <div class="widget tagcloud">
+      <a href="/tags/CS/" style="font-size: 15px;">CS</a> <a href="/tags/DataBase/" style="font-size: 10px;">DataBase</a> <a href="/tags/Life/" style="font-size: 10px;">Life</a> <a href="/tags/ML/" style="font-size: 20px;">ML</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/backend/" style="font-size: 10px;">backend</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/database/" style="font-size: 10px;">database</a>
+    </div>
+  </div>
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Archives</h3>
+    <div class="widget">
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li></ul>
+    </div>
+  </div>
+
+
+  
+    
+  <div class="widget-wrap">
+    <h3 class="widget-title">Recent Posts</h3>
+    <div class="widget">
+      <ul>
+        
+          <li>
+            <a href="/2017/03/16/mongodb-Replica-Set-Deployment-Architectures/">mongodb_Replica_Set_Deployment_Architectures</a>
+          </li>
+        
+          <li>
+            <a href="/2017/03/02/copy-on-write/">写时复制</a>
+          </li>
+        
+          <li>
+            <a href="/2017/02/24/why-split-data-to-train-and-test/">为什么要分割数据以及交叉验证？</a>
+          </li>
+        
+          <li>
+            <a href="/2017/02/24/Classic-And-Old-Class/">Classic-And-Old-Class</a>
+          </li>
+        
+          <li>
+            <a href="/2017/02/21/backend-performance-profile/">backend-performance-profile</a>
+          </li>
+        
+      </ul>
+    </div>
+  </div>
+
+  
+</aside>
+        
+      </div>
+      <footer id="footer">
+  
+  <div class="outer">
+    <div id="footer-info" class="inner">
+      &copy; 2017 KIDJourney<br>
+      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+    </div>
+  </div>
+</footer>
+
+    </div>
+    <nav id="mobile-nav">
+  
+    <a href="/" class="mobile-nav-link">Home</a>
+  
+    <a href="/archives" class="mobile-nav-link">Archives</a>
+  
+</nav>
+    
+
+<script src="//ajax.googleapis.com/ajax/libs/jquery/2.0.3/jquery.min.js"></script>
+
+
+  <link rel="stylesheet" href="/fancybox/jquery.fancybox.css">
+  <script src="/fancybox/jquery.fancybox.pack.js"></script>
+
+
+<script src="/js/script.js"></script>
+
+  </div>
+</body>
+</html>
