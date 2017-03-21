@@ -90,7 +90,7 @@
         <p>所谓CRISP-DM，其实就是cross-industry process for data mining，跨领域的数据挖掘流程。</p>
 <p>记得国外一位大佬说过：“机器学习让完全不了解某一领域的人得以胜任这个领域的任务”。</p>
 <p>这个方法论也是如此，他是鲁棒而又被充分证明的理论。</p>
-<p><img src="/image/CRISP.png" alt="CRISP"></p>
+<p><img src="/images/CRISP.png" alt="CRISP"></p>
 <h2 id="第一阶段：确定业务目标。"><a href="#第一阶段：确定业务目标。" class="headerlink" title="第一阶段：确定业务目标。"></a>第一阶段：确定业务目标。</h2><blockquote>
 <p>You plus that, divide this, plot some beautiful graph, but what the fxxk you actually want to do?</p>
 </blockquote>
@@ -104,7 +104,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/index.html" data-id="cj0i3bz3p0000na9t77olrcot" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/index.html" data-id="cj0ixevhk0003og9tt70smtgy" class="article-share-link">Share</a>
 
       
 
@@ -200,7 +200,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/index.html" data-id="cj0i3bz4f000mna9tciz5pmty" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/index.html" data-id="cj0ixevhy000hog9ttfeqmlqm" class="article-share-link">Share</a>
 
       
 
@@ -248,7 +248,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/index.html" data-id="cj0i3bz450009na9t881t55mj" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/index.html" data-id="cj0ixevho0008og9t7lz64jte" class="article-share-link">Share</a>
 
       
 
@@ -311,7 +311,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/index.html" data-id="cj0i3bz4g000ona9tfzsii7uf" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/index.html" data-id="cj0ixevi2000oog9tqga71bpx" class="article-share-link">Share</a>
 
       
 
@@ -347,16 +347,108 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <p>我比较崇尚新兴的东西，所以一直都在使用Python3，但生产环境大部分都是Python2。</p>
+        <hr>
+<p>title: Classic-And-Old-Class<br>date: 2017-02-24 14:58:57</p>
+<h2 id="tags-Python"><a href="#tags-Python" class="headerlink" title="tags: Python"></a>tags: Python</h2><p>我比较崇尚新兴的东西，所以一直都在使用Python3，但无奈大部分生产环境都是Python2.x。</p>
 <h2 id="旧式类"><a href="#旧式类" class="headerlink" title="旧式类"></a>旧式类</h2><p>旧式类是为了保证向后兼容而在2.1中引进的类。</p>
 <p>他通过非继承的直接定义</p>
-<pre><code>class OldClass():
+<pre><code>class OldClass:
     pass
-</code></pre>
+</code></pre><p>或者继承自旧式类来创建</p>
+<pre><code>class OldChild(OldMather, OldFather):
+    pass
+</code></pre><h2 id="新式类"><a href="#新式类" class="headerlink" title="新式类"></a>新式类</h2><p>新式类通过继承自object或者type</p>
+<pre><code>class NewClass(object):
+    pass
+
+class NewClass2(object):
+    pass
+</code></pre><p>或者继承自其它新式类创建</p>
+<pre><code>class NewChild(NewParent):
+    pass
+</code></pre><h2 id="区别"><a href="#区别" class="headerlink" title="区别"></a>区别</h2><h4 id="新式类可以使用descriptor"><a href="#新式类可以使用descriptor" class="headerlink" title="新式类可以使用descriptor"></a>新式类可以使用<a href="https://docs.python.org/2/howto/descriptor.html" target="_blank" rel="external">descriptor</a></h4><p>关于描述符又是一个内容很多的东西，之后单独开篇讲。</p>
+<h4 id="新式类可以通过class获取自身类型：type"><a href="#新式类可以通过class获取自身类型：type" class="headerlink" title="新式类可以通过class获取自身类型：type"></a>新式类可以通过<strong>class</strong>获取自身类型：type</h4><pre><code>In [13]: class Test:
+    ...:     pass
+    ...:
+
+In [14]: class Test1(object):
+    ...:     pass
+    ...:
+
+In [15]: t1 = Test()
+
+In [16]: t2 = Test1()
+
+In [17]: t1.__class__
+Out[17]: &lt;class __main__.Test at 0x10c314ae0&gt;
+
+In [18]: t2.__class__
+Out[18]: __main__.Test1
+
+In [19]: type(t1)
+Out[19]: instance
+
+In [20]: type(t2)
+Out[20]: __main__.Test1
+</code></pre><h4 id="继承的搜索顺序不同，旧式类为深度优先，"><a href="#继承的搜索顺序不同，旧式类为深度优先，" class="headerlink" title="继承的搜索顺序不同，旧式类为深度优先，"></a>继承的搜索顺序不同，旧式类为深度优先，</h4><p>Classic Class:</p>
+<pre><code>In [24]: class Base:
+    ...:     def hi(self):
+    ...:         print(&quot;I am base&quot;)
+    ...:
+
+In [25]: class A(Base):
+    ...:     pass
+    ...:
+
+In [26]: class B(Base):
+    ...:     def hi(self):
+    ...:         print(&quot;I am B&quot;)
+    ...:
+
+In [27]: class C(A,B):
+    ...:     pass
+    ...:
+
+In [29]: c = C()
+
+In [30]: c.hi()
+I am base
+</code></pre><p>New Class</p>
+<pre><code>In [31]: class NewBase:
+    ...:     def hi(self):
+    ...:         print(&quot;I am Base&quot;)
+    ...:
+
+In [32]: class NewBase(object):
+    ...:     def hi(self):
+    ...:         print(&quot;I am Base&quot;)
+    ...:
+
+In [33]: class NewA(NewBase):
+    ...:     pass
+    ...:
+
+In [34]: class NewB(NewBase):
+    ...:     def hi(self):
+    ...:         print(&quot;I am NB&quot;)
+    ...:
+
+In [35]: class NewC(NewA, NewB):
+    ...:     pass
+    ...:
+
+In [36]: newc = NewC()
+
+In [37]: newc.hi()
+I am NB
+</code></pre><p>其中两种类的检索顺序为：<br>新式类：<br><img src="/images/newclass.png" alt="newclass"><br>先在同层进行检索，再深入进行，比较像BFS。</p>
+<p>旧式类：<br><img src="/images/oldclass.png" alt="oldclass"><br>验证继承树向上，DFS。</p>
+<h2 id="结论"><a href="#结论" class="headerlink" title="结论"></a>结论</h2><p>相比之下， <code>classic class</code>没有任何优势，甚至像<code>__slot__</code>这种Python中的<code>Magic Method</code>都无法使用。旧式类在3.x后被淘汰，大概也是这个原因。</p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/index.html" data-id="cj0i3bz3y0003na9txt77plkn" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/index.html" data-id="cj0ixevhb0000og9tpuzbnr4x" class="article-share-link">Share</a>
 
       
 
@@ -512,7 +604,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/index.html" data-id="cj0i3bz3z0004na9tnw9j7hyh" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/index.html" data-id="cj0ixevhv000bog9tr5lwr1hp" class="article-share-link">Share</a>
 
       
 
@@ -581,7 +673,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/index.html" data-id="cj0i3bz410005na9t1f5w8lmp" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/index.html" data-id="cj0ixevhn0005og9twbih5dac" class="article-share-link">Share</a>
 
       
 
@@ -627,7 +719,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/index.html" data-id="cj0i3bz420008na9tibvd0zdc" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/index.html" data-id="cj0ixevhl0004og9t7h7nmdqf" class="article-share-link">Share</a>
 
       
 
@@ -684,7 +776,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/index.html" data-id="cj0i3bz49000ena9t4z6vulox" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/index.html" data-id="cj0ixevhv000dog9twruxibm6" class="article-share-link">Share</a>
 
       
 
@@ -726,7 +818,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/index.html" data-id="cj0i3bz3t0001na9t2wztw7jr" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/index.html" data-id="cj0ixevhf0001og9tgr0hm089" class="article-share-link">Share</a>
 
       
 
