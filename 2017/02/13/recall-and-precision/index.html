@@ -33,8 +33,9 @@ F1
 
 偏斜类：1000人中有三个犯人，我们只需要将所有人设为无罪，准确率就可以达到99.7%
 当预测正">
+<meta property="og:image" content="https://kidjourney.github.io/Precisionrecall.svg.png">
 <meta property="og:image" content="https://kidjourney.github.io/images/confusion_matrix.png">
-<meta property="og:updated_time" content="2017-02-18T04:10:22.000Z">
+<meta property="og:updated_time" content="2017-03-24T10:15:03.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="recall_and_precision">
 <meta name="twitter:description" content="Intro在ML中评估是一个很重要的环节，一般有以下集中评估方式：
@@ -49,7 +50,7 @@ F1
 
 偏斜类：1000人中有三个犯人，我们只需要将所有人设为无罪，准确率就可以达到99.7%
 当预测正">
-<meta name="twitter:image" content="https://kidjourney.github.io/images/confusion_matrix.png">
+<meta name="twitter:image" content="https://kidjourney.github.io/Precisionrecall.svg.png">
   
     <link rel="alternate" href="/atom.xml" title="Journey" type="application/atom+xml">
   
@@ -94,9 +95,9 @@ F1
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Zoeken"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://kidjourney.github.io"></form>
@@ -155,13 +156,15 @@ E     未检索到   C    D
 <li>D：预测不相关，未被检索到（TN）</li>
 </ul>
 <p>可以通过这个矩阵得到各种评估方式的计算方法：</p>
+<p>TP: 本该为正例，被预测为正例。<br>TF: 被改为负例，被预测为负例。<br>FP: 本该为正例，被预测为负例。<br>FN: 本该为负例，被预测为正例。</p>
 <ul>
 <li>Accuracy = (TP + TN) / (P + N)</li>
 <li>Precision = TP / (TP + FP)</li>
-<li>Recall = TN / (TP + FN) </li>
+<li>Recall = TP / (TP + FN) </li>
 </ul>
+<p><img src="Precisionrecall.svg.png" alt="Precisionrecall"></p>
 <p>从计算方式我们可以大体确认这几个评估指标的意义：</p>
-<p>Precision（精确度）: 相关样本被检索树数量的占所有相关样本数量的比率，或者说预测正确的正例占被预测为正例的样本比率。<br>Recall(召回率）：相关样本被检索的数量，或者说正确预测的正例比例占所有应该被预测为正例的样本的比例。</p>
+<p>Precision（精确度）: 所有正确预测的正例，占所有被预测为正例的比率。<br>Recall(召回率）：所有正确预测的正例，占所有正例的比率。</p>
 <p><img src="/images/confusion_matrix.png" alt="confusion matrix"></p>
 <h2 id="F1-分数"><a href="#F1-分数" class="headerlink" title="F1 分数"></a>F1 分数</h2><p>既然我们已讨论了精确率和召回率，接下来可能要考虑的另一个指标是 F1 分数。F1 分数会同时考虑精确率和召回率，以便计算新的分数。</p>
 <p>可将 F1 分数理解为精确率和召回率的加权平均值，其中 F1 分数的最佳值为 1、最差值为 0：</p>
@@ -178,7 +181,7 @@ E     未检索到   C    D
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/2017/02/13/recall-and-precision/index.html" data-id="cj0nl4vqm000rzs9t1hpghz9h" class="article-share-link">Delen</a>
+      <a data-url="https://kidjourney.github.io/2017/02/13/recall-and-precision/index.html" data-id="cj0no7snk000m729ttiof3b5h" class="article-share-link">Partager</a>
 
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ML/">ML</a></li></ul>
@@ -190,7 +193,7 @@ E     未检索到   C    D
 <nav id="article-nav">
   
     <a href="/2017/02/15/2017-plan/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Nieuwer</strong>
+      <strong class="article-nav-caption">Récent</strong>
       <div class="article-nav-title">
         
           2017_plan
@@ -200,7 +203,7 @@ E     未检索到   C    D
   
   
     <a href="/2017/02/13/self-analysis/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Ouder</strong>
+      <strong class="article-nav-caption">Ancien</strong>
       <div class="article-nav-title">self_analysis</div>
     </a>
   
@@ -218,7 +221,7 @@ E     未检索到   C    D
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Labels</h3>
+    <h3 class="widget-title">Mot-clés</h3>
     <div class="widget">
       <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CS/">CS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataBase/">DataBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ML/">ML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backend/">backend</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li></ul>
     </div>
@@ -228,7 +231,7 @@ E     未检索到   C    D
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
+    <h3 class="widget-title">Nuage de mot-clés</h3>
     <div class="widget tagcloud">
       <a href="/tags/CS/" style="font-size: 16.67px;">CS</a> <a href="/tags/DataBase/" style="font-size: 10px;">DataBase</a> <a href="/tags/Life/" style="font-size: 10px;">Life</a> <a href="/tags/ML/" style="font-size: 20px;">ML</a> <a href="/tags/Python/" style="font-size: 13.33px;">Python</a> <a href="/tags/backend/" style="font-size: 10px;">backend</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/database/" style="font-size: 10px;">database</a>
     </div>
@@ -237,7 +240,7 @@ E     未检索到   C    D
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Archieven</h3>
+    <h3 class="widget-title">Archives</h3>
     <div class="widget">
       <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li></ul>
     </div>
@@ -247,7 +250,7 @@ E     未检索到   C    D
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recente berichten</h3>
+    <h3 class="widget-title">Articles récents</h3>
     <div class="widget">
       <ul>
         
@@ -284,7 +287,7 @@ E     未检索到   C    D
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 KIDJourney<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
