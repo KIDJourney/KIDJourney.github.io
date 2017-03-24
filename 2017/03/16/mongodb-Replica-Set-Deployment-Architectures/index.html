@@ -11,6 +11,7 @@
 容错：
 
 
+
 成员数
 可进行投票的最小成员数量
 可容忍错误数
@@ -39,7 +40,8 @@
 
 
 
-特殊功能成员hidden和delayed成员，可实现特殊功能，如备份">
+
+特殊功能成员hidden和delayed成员，可实现特殊功能，如">
 <meta property="og:type" content="article">
 <meta property="og:title" content="mongodb_Replica_Set_Deployment_Architectures">
 <meta property="og:url" content="https://kidjourney.github.io/2017/03/16/mongodb-Replica-Set-Deployment-Architectures/index.html">
@@ -50,6 +52,7 @@
 容错：
 
 
+
 成员数
 可进行投票的最小成员数量
 可容忍错误数
@@ -78,7 +81,8 @@
 
 
 
-特殊功能成员hidden和delayed成员，可实现特殊功能，如备份">
+
+特殊功能成员hidden和delayed成员，可实现特殊功能，如">
 <meta property="og:updated_time" content="2017-03-16T05:33:52.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="mongodb_Replica_Set_Deployment_Architectures">
@@ -88,6 +92,7 @@
 容错：
 
 
+
 成员数
 可进行投票的最小成员数量
 可容忍错误数
@@ -116,7 +121,8 @@
 
 
 
-特殊功能成员hidden和delayed成员，可实现特殊功能，如备份">
+
+特殊功能成员hidden和delayed成员，可实现特殊功能，如">
   
     <link rel="alternate" href="/atom.xml" title="Journey" type="application/atom+xml">
   
@@ -135,6 +141,9 @@
   <div id="container">
     <div id="wrap">
       <header id="header">
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
   <div id="banner"></div>
   <div id="header-outer" class="outer">
     <div id="header-title" class="inner">
@@ -158,9 +167,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://kidjourney.github.io"></form>
@@ -168,6 +177,7 @@
     </div>
   </div>
 </header>
+
       <div class="outer">
         <section id="main"><article id="post-mongodb-Replica-Set-Deployment-Architectures" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -194,7 +204,8 @@
         <h1 id="策略"><a href="#策略" class="headerlink" title="策略"></a>策略</h1><h2 id="成员数量"><a href="#成员数量" class="headerlink" title="成员数量"></a>成员数量</h2><h3 id="最大投票成员："><a href="#最大投票成员：" class="headerlink" title="最大投票成员："></a>最大投票成员：</h3><p>一个复制集群最多可以有50个成员，但是最多只能有7个可投票成员。</p>
 <h3 id="成员数："><a href="#成员数：" class="headerlink" title="成员数："></a>成员数：</h3><p>成员数应为奇数，偶数集群应该添加仲裁（Arbiter）节点。</p>
 <p>仲裁节点不保存数据，占用资源更少。</p>
-<h3 id="容错："><a href="#容错：" class="headerlink" title="容错："></a>容错：</h3><table>
+<h3 id="容错："><a href="#容错：" class="headerlink" title="容错："></a>容错：</h3><div class="table-container">
+<table>
 <thead>
 <tr>
 <th>成员数</th>
@@ -225,6 +236,7 @@
 </tr>
 </tbody>
 </table>
+</div>
 <h3 id="特殊功能成员"><a href="#特殊功能成员" class="headerlink" title="特殊功能成员"></a>特殊功能成员</h3><p>hidden和delayed成员，可实现特殊功能，如备份或者报警。</p>
 <h2 id="影响选举的因素"><a href="#影响选举的因素" class="headerlink" title="影响选举的因素"></a>影响选举的因素</h2><h3 id="选举协议"><a href="#选举协议" class="headerlink" title="选举协议"></a>选举协议</h3><p>在3.2之后，mongodb使用<code>protocolVersion：1</code>作为选举协议。</p>
 <h3 id="心跳"><a href="#心跳" class="headerlink" title="心跳"></a>心跳</h3><p>每个成员每两秒会发送一个心跳请求到所有成员，如果10秒内没有回应，会被发送心跳的成员标记为不可达。</p>
@@ -251,26 +263,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/2017/03/16/mongodb-Replica-Set-Deployment-Architectures/index.html" data-id="cj0ixevhy000hog9ttfeqmlqm" class="article-share-link">Share</a>
-
-      
-<!-- 多说评论框 start -->
-  <div class="ds-thread" data-thread-key="post-mongodb-Replica-Set-Deployment-Architectures" data-title="mongodb_Replica_Set_Deployment_Architectures" data-url="https://kidjourney.github.io/2017/03/16/mongodb-Replica-Set-Deployment-Architectures/index.html"></div>
-<!-- 多说评论框 end -->
-<!-- 多说公共JS代码 start (一个网页只需插入一次) -->
-<script type="text/javascript">
-var duoshuoQuery = {short_name:"kidjourney"};
-  (function() {
-    var ds = document.createElement('script');
-    ds.type = 'text/javascript';ds.async = true;
-    ds.src = (document.location.protocol == 'https:' ? 'https:' : 'http:') + '//static.duoshuo.com/embed.js';
-    ds.charset = 'UTF-8';
-    (document.getElementsByTagName('head')[0] 
-     || document.getElementsByTagName('body')[0]).appendChild(ds);
-  })();
-  </script>
-<!-- 多说公共JS代码 end -->
-
+      <a data-url="https://kidjourney.github.io/2017/03/16/mongodb-Replica-Set-Deployment-Architectures/index.html" data-id="cj0nl1yjl000krp9tly42ka8l" class="article-share-link">Partager</a>
 
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DataBase/">DataBase</a></li></ul>
@@ -282,7 +275,7 @@ var duoshuoQuery = {short_name:"kidjourney"};
 <nav id="article-nav">
   
     <a href="/2017/03/16/CRISP-DM/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
+      <strong class="article-nav-caption">Récent</strong>
       <div class="article-nav-title">
         
           CRISP-DM
@@ -292,7 +285,7 @@ var duoshuoQuery = {short_name:"kidjourney"};
   
   
     <a href="/2017/03/02/copy-on-write/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
+      <strong class="article-nav-caption">Ancien</strong>
       <div class="article-nav-title">写时复制</div>
     </a>
   
@@ -310,7 +303,7 @@ var duoshuoQuery = {short_name:"kidjourney"};
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
+    <h3 class="widget-title">Mot-clés</h3>
     <div class="widget">
       <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CS/">CS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataBase/">DataBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ML/">ML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backend/">backend</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li></ul>
     </div>
@@ -320,9 +313,9 @@ var duoshuoQuery = {short_name:"kidjourney"};
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
+    <h3 class="widget-title">Nuage de mot-clés</h3>
     <div class="widget tagcloud">
-      <a href="/tags/CS/" style="font-size: 15px;">CS</a> <a href="/tags/DataBase/" style="font-size: 10px;">DataBase</a> <a href="/tags/Life/" style="font-size: 10px;">Life</a> <a href="/tags/ML/" style="font-size: 20px;">ML</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/backend/" style="font-size: 10px;">backend</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/database/" style="font-size: 10px;">database</a>
+      <a href="/tags/CS/" style="font-size: 16.67px;">CS</a> <a href="/tags/DataBase/" style="font-size: 10px;">DataBase</a> <a href="/tags/Life/" style="font-size: 10px;">Life</a> <a href="/tags/ML/" style="font-size: 20px;">ML</a> <a href="/tags/Python/" style="font-size: 13.33px;">Python</a> <a href="/tags/backend/" style="font-size: 10px;">backend</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/database/" style="font-size: 10px;">database</a>
     </div>
   </div>
 
@@ -331,7 +324,7 @@ var duoshuoQuery = {short_name:"kidjourney"};
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li></ul>
     </div>
   </div>
 
@@ -339,28 +332,28 @@ var duoshuoQuery = {short_name:"kidjourney"};
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">Articles récents</h3>
     <div class="widget">
       <ul>
         
           <li>
-            <a href="/2017/03/16/CRISP-DM/">CRISP-DM</a>
+            <a href="/2017/03/24/select-poll-epoll/">select_poll_epoll</a>
           </li>
         
           <li>
-            <a href="/2017/03/16/mongodb-Replica-Set-Deployment-Architectures/">mongodb_Replica_Set_Deployment_Architectures</a>
+            <a href="/2017/03/23/hello-world/">Hello World</a>
           </li>
         
           <li>
-            <a href="/2017/03/02/copy-on-write/">写时复制</a>
+            <a href="/2017/03/23/neural-network-notebook/">neural-network-notebook</a>
           </li>
         
           <li>
-            <a href="/2017/02/24/why-split-data-to-train-and-test/">为什么要分割数据以及交叉验证？</a>
+            <a href="/2017/03/23/tornado-source1/">tornado source code (1)</a>
           </li>
         
           <li>
-            <a href="/2017/02/24/Classic-And-Old-Class/">Classic-And-Old-Class</a>
+            <a href="/2017/03/21/meta-programming/">meta_programming</a>
           </li>
         
       </ul>
@@ -376,7 +369,7 @@ var duoshuoQuery = {short_name:"kidjourney"};
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 KIDJourney<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>

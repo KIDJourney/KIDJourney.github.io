@@ -29,6 +29,9 @@
   <div id="container">
     <div id="wrap">
       <header id="header">
+<script type="text/javascript" async
+  src="https://cdn.mathjax.org/mathjax/latest/MathJax.js?config=TeX-MML-AM_CHTML">
+</script>
   <div id="banner"></div>
   <div id="header-outer" class="outer">
     <div id="header-title" class="inner">
@@ -52,9 +55,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://kidjourney.github.io"></form>
@@ -62,8 +65,369 @@
     </div>
   </div>
 </header>
+
       <div class="outer">
         <section id="main">
+  
+    <article id="post-backend-performance-profile" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/02/21/backend-performance-profile/" class="article-date">
+  <time datetime="2017-02-21T07:19:42.000Z" itemprop="datePublished">2017-02-21</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/21/backend-performance-profile/">backend-performance-profile</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Why"><a href="#Why" class="headerlink" title="Why"></a>Why</h2><ul>
+<li>用户体验<ul>
+<li>用户留存</li>
+</ul>
+</li>
+<li>运营成本<ul>
+<li>硬件成本</li>
+<li>边际成本</li>
+</ul>
+</li>
+</ul>
+<h2 id="What"><a href="#What" class="headerlink" title="What"></a>What</h2><ul>
+<li>响应慢</li>
+<li>单机容量低</li>
+<li>并发能力弱</li>
+</ul>
+<h2 id="How"><a href="#How" class="headerlink" title="How"></a>How</h2><ul>
+<li><p>数据驱动</p>
+<ul>
+<li>定性</li>
+<li>定量</li>
+<li>诊断工具</li>
+</ul>
+</li>
+<li><p>系统诊断</p>
+<ul>
+<li>热点</li>
+<li>切分阶段，快速定位。</li>
+</ul>
+</li>
+</ul>
+<h2 id="Example"><a href="#Example" class="headerlink" title="Example"></a>Example</h2><ul>
+<li><p>单机容量低</p>
+<ul>
+<li>CPU ?<ul>
+<li>判断<ul>
+<li>load</li>
+<li>cpu useage</li>
+<li>cpu steal</li>
+</ul>
+</li>
+<li>定位<ul>
+<li>top</li>
+<li>stack</li>
+</ul>
+</li>
+<li>分析<ul>
+<li>profile tool</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>内存</p>
+<ul>
+<li>判断<ul>
+<li>mem指标</li>
+<li>swap    </li>
+<li>语言相关参数</li>
+</ul>
+</li>
+<li>定位<ul>
+<li>各种内存诊断工具</li>
+</ul>
+</li>
+<li>分析<ul>
+<li>toll</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>网络</p>
+<ul>
+<li>判断<ul>
+<li>net.if socket异常</li>
+</ul>
+</li>
+<li>定位<ul>
+<li>netstat</li>
+<li>iftop</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+</li>
+<li><p>响应慢</p>
+<ul>
+<li>下游依赖慢: db,cache,service <ul>
+<li>调用链分析</li>
+</ul>
+</li>
+<li>同步调用（大量同步调用其他服务接口）<ul>
+<li>调用链 + 定量评估</li>
+<li>异步化</li>
+</ul>
+</li>
+<li>逻辑实现：循环调用，本地方法耗时？<ul>
+<li>profiler 查热点。</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+<ul>
+<li>并发弱<ul>
+<li>资源瓶颈: 线程池，连接池<ul>
+<li>保证线程池大小与CPU数量挂钩。</li>
+</ul>
+</li>
+<li>资源竞争: cpu切换，锁<ul>
+<li>异步化，降低 context switch</li>
+</ul>
+</li>
+</ul>
+</li>
+</ul>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://kidjourney.github.io/page/2/index.html" data-id="cj0nl1yj90005rp9t5ae4b5tm" class="article-share-link">Partager</a>
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/backend/">backend</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-about-encoding" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/02/17/about-encoding/" class="article-date">
+  <time datetime="2017-02-17T07:26:45.000Z" itemprop="datePublished">2017-02-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/17/about-encoding/">about_encoding</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="关于Unicode"><a href="#关于Unicode" class="headerlink" title="关于Unicode"></a>关于Unicode</h2><p>几个概念：</p>
+<h4 id="Code-Point"><a href="#Code-Point" class="headerlink" title="Code Point"></a>Code Point</h4><p>code point是一个整数值，一般为十六进制。比如<code>0x12ca</code>写作<code>U+12ca</code></p>
+<h4 id="Character"><a href="#Character" class="headerlink" title="Character"></a>Character</h4><p>character是文本的最小基本单位，如<code>A</code>、<code>B</code>、<code>C</code>、<code>你</code>、<code>我</code>、<code>他</code>、<code>+</code>、<code>-</code>、<code>！</code>、<code>。</code></p>
+<h4 id="glyph"><a href="#glyph" class="headerlink" title="glyph"></a>glyph</h4><p>glyph是字符在屏幕上的表现形式。</p>
+<h3 id="这三者之间的关系"><a href="#这三者之间的关系" class="headerlink" title="这三者之间的关系"></a>这三者之间的关系</h3><p>UNICODE_TABLE[code_point] =&gt; character</p>
+<p>print(character) =&gt; 我们在屏幕上看到的东西</p>
+<h2 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h2><p>Unicode字符串其实就是一串code point，从0到0x10FFFF。</p>
+<p>在计算机中，保存数据只能通过二进制来表示，因此这一串code point需要用一组byte来表示。</p>
+<p>将Unicode string转化成一串字符串的规则，被叫做编码。</p>
+<p>我们现在制造一种编码，用32位表示一个code point，那么”Pyhton”就会被表示为:</p>
+<pre><code>   P           y           t           h           o           n
+0x50 00 00 00 79 00 00 00 74 00 00 00 68 00 00 00 6f 00 00 00 6e 00 00 00
+   0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23
+</code></pre><p>这种方法简单粗暴，但是有一些问题：</p>
+<ul>
+<li>兼容性不好：不同处理器处理字节的顺序不同。<a href="https://en.wikipedia.org/wiki/Endianness" target="_blank" rel="external">Endian</a></li>
+<li>浪费空间，对于一篇纯英文的文章来说，存储空间要是ascii的四倍。</li>
+<li>和C语言的<code>strlen</code>不兼容，因为有<code>\0</code>。</li>
+<li>很多网络协议是基于文本的，不能处理其中的<code>0x00</code>(\0)。</li>
+</ul>
+<h2 id="UTF8"><a href="#UTF8" class="headerlink" title="UTF8"></a>UTF8</h2><p>UTF-8 是一种最广泛使用的编码格式。UTF代表着<code>Unicode Transformation Format</code>，<code>8</code>代表编码使用8bit的数字。</p>
+<p>UTF-8有几个很方便的属性：</p>
+<ul>
+<li>可以处理任何Unicode code point。</li>
+<li>通过UTF8编码得到的byte串没有内嵌的<code>0x00</code>，这避免了字节序的问题，并且兼容c语言字符串相关的函数和那些无法正确处理<code>\0</code>的协议。</li>
+<li>兼容古老的ASCII。</li>
+<li>空间使用率高，大部分的最常使用的字符都可以在2字节内表示。</li>
+<li>就算由UTF-8编码得到的byte串在传输过程中丢失、损毁信息，也可以很简单的找到下一个code point。</li>
+</ul>
+<h2 id="不同编码之间的转换"><a href="#不同编码之间的转换" class="headerlink" title="不同编码之间的转换"></a>不同编码之间的转换</h2><h2 id="Encoding-In-Python"><a href="#Encoding-In-Python" class="headerlink" title="Encoding  In Python"></a>Encoding  In Python</h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://kidjourney.github.io/page/2/index.html" data-id="cj0nl1yj60003rp9t5n0y4s1f" class="article-share-link">Partager</a>
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-bias-and-variance" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/02/16/bias-and-variance/" class="article-date">
+  <time datetime="2017-02-16T01:35:34.000Z" itemprop="datePublished">2017-02-16</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/16/bias-and-variance/">bias-and-variance</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="偏差与方差"><a href="#偏差与方差" class="headerlink" title="偏差与方差"></a>偏差与方差</h2><h3 id="定义"><a href="#定义" class="headerlink" title="定义"></a>定义</h3><h4 id="偏差（Bias）"><a href="#偏差（Bias）" class="headerlink" title="偏差（Bias）"></a>偏差（Bias）</h4><p>Bias反映了预测值与真实值之间的差异，是模型本身的精确度。</p>
+<h4 id="方差（Variance）"><a href="#方差（Variance）" class="headerlink" title="方差（Variance）"></a>方差（Variance）</h4><p>方差反映了模型输出结果与模型输出期望之间的误差，是模型本身的稳定性。</p>
+<p><img src="/images/bias_and_variance.png" alt="Fig.1"></p>
+<p>可以用打靶来举例。</p>
+<p>低误差的射手（模型），可以保证所有落点都集中在准心附近。</p>
+<p>低方差的射手可以保证他的准心很稳定的集中在一个区域内。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://kidjourney.github.io/page/2/index.html" data-id="cj0nl1yja0008rp9t3md9y4ye" class="article-share-link">Partager</a>
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ML/">ML</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-hexo-duoshuo-comment" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/02/15/hexo-duoshuo-comment/" class="article-date">
+  <time datetime="2017-02-15T11:45:13.000Z" itemprop="datePublished">2017-02-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/15/hexo-duoshuo-comment/">hexo-duoshuo-comment</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <p>适用于所有theme。</p>
+<h2 id="定位"><a href="#定位" class="headerlink" title="定位"></a>定位</h2><p>多说可以是说一个js插件，负责把他的评论功能安插到正常的页面中。<br>在静态博客中，首先要找到构成你post的模板，一般在<code>themes/xxxx/layout</code>下。</p>
+<p>实在找不到的话在你的post也查看源码，找article等等相关的class在theme文件中搜。</p>
+<h2 id="修改"><a href="#修改" class="headerlink" title="修改"></a>修改</h2><p>下面以我用的landscape为例。</p>
+<p>landscape在index和post页面共用了一套模板，我们不想出现在index的post列表中每个post后面都跟着一个评论框，需要找个方法区分访问者的当前位置</p>
+<p>hexo使用的是一种和php很像的标记语言，随便看看发现了这样一条语句。</p>
+<pre><code>&lt;% if (!index){ %&gt;
+    &lt;%- partial(&#39;post/nav&#39;) %&gt;
+&lt;% } %&gt;
+</code></pre><p>把这个直接拿来用。</p>
+<p>得到类似下面的结构</p>
+<pre><code>&lt;% if (!index){ %&gt;
+    多说评论框 start 
+    多说公共JS代码 end 
+&lt;% } %&gt;
+</code></pre><p>以此类推，其他需要填入多说js的变量也可以在article模板中找到。</p>
+<p>done.</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://kidjourney.github.io/page/2/index.html" data-id="cj0nl1yjh000drp9tei6518d5" class="article-share-link">Partager</a>
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
+    <article id="post-2017-plan" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/02/15/2017-plan/" class="article-date">
+  <time datetime="2017-02-15T01:08:11.000Z" itemprop="datePublished">2017-02-15</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/15/2017-plan/">2017_plan</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="Q1"><a href="#Q1" class="headerlink" title="Q1"></a>Q1</h2><p>[ ] 优达学城机器学习课程。<br>[ ] 尽快融入新公司生活，有所产出。<br>[ ] 签到项目上线。</p>
+<h2 id="Q2"><a href="#Q2" class="headerlink" title="Q2"></a>Q2</h2><p>[ ] 签到项目继续跟进。<br>[ ] 在公有服务完成的情况下做steam trading。<br>[ ] 公司内部push一下服务拆分。<br>[ ] 毕设。</p>
+
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://kidjourney.github.io/page/2/index.html" data-id="cj0nl1yix0000rp9tvbvfou4n" class="article-share-link">Partager</a>
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Life/">Life</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
   
     <article id="post-recall-and-precision" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
@@ -128,8 +492,7 @@ E     未检索到   C    D
 <h2 id="回归指标"><a href="#回归指标" class="headerlink" title="回归指标"></a>回归指标</h2><p>正如前面对问题的回归类型所做的介绍，我们处理的是根据连续数据进行预测的模型。在这里，我们更关注预测的接近程度。</p>
 <p>例如，对于身高和体重预测，我们不是很关心模型能否将某人的体重 100% 准确地预测到小于零点几磅，但可能很关心模型如何能始终进行接近的预测（可能与个人的真实体重相差 3-4 磅）。</p>
 <h2 id="平均绝对误差"><a href="#平均绝对误差" class="headerlink" title="平均绝对误差"></a>平均绝对误差</h2><p>在统计学中可以使用绝对误差来测量误差，以找出预测值与真实值之间的差距。平均绝对误差的计算方法是，将各个样本的绝对误差汇总，然后根据数据点数量求出平均误差。通过将模型的所有绝对值加起来，可以避免因预测值比真实值过高或过低而抵销误差，并能获得用于评估模型的整体误差指标。</p>
-<p>##均方误差</p>
-<p>均方误差是另一个经常用于测量模型性能的指标。与绝对误差相比，残差（预测值与真实值的差值）被求平方。</p>
+<h2 id="均方误差"><a href="#均方误差" class="headerlink" title="均方误差"></a>均方误差</h2><p>均方误差是另一个经常用于测量模型性能的指标。与绝对误差相比，残差（预测值与真实值的差值）被求平方。</p>
 <p>对残差求平方的一些好处是，自动将所有误差转换为正数、注重较大的误差而不是较小的误差以及在微积分中是可微的（可让我们找到最小值和最大值）。</p>
 <h1 id="回归分数函数"><a href="#回归分数函数" class="headerlink" title="回归分数函数"></a>回归分数函数</h1><p>除了误差指标之外，scikit-learn还包括了两个分数指标，范围通常从0到1，值0为坏，而值1为最好的表现。</p>
 <p>其中之一是R2分数，用来计算真值预测的可决系数。在 scikit-learn 里，这也是回归学习器默认的分数方法。</p>
@@ -138,9 +501,7 @@ E     未检索到   C    D
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/page/2/index.html" data-id="cj0ixevi0000jog9tccndbdyw" class="article-share-link">Share</a>
-
-      
+      <a data-url="https://kidjourney.github.io/page/2/index.html" data-id="cj0nl1yjp000qrp9t7y7cgb6t" class="article-share-link">Partager</a>
 
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ML/">ML</a></li></ul>
@@ -180,9 +541,7 @@ E     未检索到   C    D
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/page/2/index.html" data-id="cj0ixevi0000log9t9pkjwfgv" class="article-share-link">Share</a>
-
-      
+      <a data-url="https://kidjourney.github.io/page/2/index.html" data-id="cj0nl1yjr000srp9tp6uxq38y" class="article-share-link">Partager</a>
 
       
     </footer>
@@ -253,7 +612,7 @@ log-basename=master1
 bind-address=&lt;ip address&gt;
 # socket
 </code></pre><p>CheckConfig:</p>
-<pre><code>show variables like &apos;sql_log_bin&apos;; # sql_log_bin on
+<pre><code>show variables like &#39;sql_log_bin&#39;; # sql_log_bin on
 show variables like &quot;skip_networking&quot;; # sql_log_bin off
 </code></pre><p>Create Slave User:</p>
 <pre><code>grant replication slave on *.* to  xxxuser;
@@ -285,60 +644,11 @@ MASTER_CONNECT_RETRY=10;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/page/2/index.html" data-id="cj0ixevhy000fog9tc0tpo5be" class="article-share-link">Share</a>
-
-      
+      <a data-url="https://kidjourney.github.io/page/2/index.html" data-id="cj0nl1yjn000nrp9ton2yvdtc" class="article-share-link">Partager</a>
 
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/database/">database</a></li></ul>
 
-    </footer>
-  </div>
-  
-</article>
-
-
-  
-    <article id="post-hello-world" class="article article-type-post" itemscope itemprop="blogPost">
-  <div class="article-meta">
-    <a href="/2017/01/28/hello-world/" class="article-date">
-  <time datetime="2017-01-28T03:09:06.000Z" itemprop="datePublished">2017-01-28</time>
-</a>
-    
-  </div>
-  <div class="article-inner">
-    
-    
-      <header class="article-header">
-        
-  
-    <h1 itemprop="name">
-      <a class="article-title" href="/2017/01/28/hello-world/">Hello World</a>
-    </h1>
-  
-
-      </header>
-    
-    <div class="article-entry" itemprop="articleBody">
-      
-        <p>Welcome to <a href="https://hexo.io/" target="_blank" rel="external">Hexo</a>! This is your very first post. Check <a href="https://hexo.io/docs/" target="_blank" rel="external">documentation</a> for more info. If you get any problems when using Hexo, you can find the answer in <a href="https://hexo.io/docs/troubleshooting.html" target="_blank" rel="external">troubleshooting</a> or you can ask me on <a href="https://github.com/hexojs/hexo/issues" target="_blank" rel="external">GitHub</a>.</p>
-<h2 id="Quick-Start"><a href="#Quick-Start" class="headerlink" title="Quick Start"></a>Quick Start</h2><h3 id="Create-a-new-post"><a href="#Create-a-new-post" class="headerlink" title="Create a new post"></a>Create a new post</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo new <span class="string">"My New Post"</span></div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/writing.html" target="_blank" rel="external">Writing</a></p>
-<h3 id="Run-server"><a href="#Run-server" class="headerlink" title="Run server"></a>Run server</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo server</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/server.html" target="_blank" rel="external">Server</a></p>
-<h3 id="Generate-static-files"><a href="#Generate-static-files" class="headerlink" title="Generate static files"></a>Generate static files</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo generate</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/generating.html" target="_blank" rel="external">Generating</a></p>
-<h3 id="Deploy-to-remote-sites"><a href="#Deploy-to-remote-sites" class="headerlink" title="Deploy to remote sites"></a>Deploy to remote sites</h3><figure class="highlight bash"><table><tr><td class="gutter"><pre><div class="line">1</div></pre></td><td class="code"><pre><div class="line">$ hexo deploy</div></pre></td></tr></table></figure>
-<p>More info: <a href="https://hexo.io/docs/deployment.html" target="_blank" rel="external">Deployment</a></p>
-
-      
-    </div>
-    <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/page/2/index.html" data-id="cj0ixevhr0009og9te2obwc6m" class="article-share-link">Share</a>
-
-      
-
-      
     </footer>
   </div>
   
@@ -360,7 +670,7 @@ MASTER_CONNECT_RETRY=10;
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
+    <h3 class="widget-title">Mot-clés</h3>
     <div class="widget">
       <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CS/">CS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataBase/">DataBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ML/">ML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backend/">backend</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li></ul>
     </div>
@@ -370,9 +680,9 @@ MASTER_CONNECT_RETRY=10;
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
+    <h3 class="widget-title">Nuage de mot-clés</h3>
     <div class="widget tagcloud">
-      <a href="/tags/CS/" style="font-size: 15px;">CS</a> <a href="/tags/DataBase/" style="font-size: 10px;">DataBase</a> <a href="/tags/Life/" style="font-size: 10px;">Life</a> <a href="/tags/ML/" style="font-size: 20px;">ML</a> <a href="/tags/Python/" style="font-size: 10px;">Python</a> <a href="/tags/backend/" style="font-size: 10px;">backend</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/database/" style="font-size: 10px;">database</a>
+      <a href="/tags/CS/" style="font-size: 16.67px;">CS</a> <a href="/tags/DataBase/" style="font-size: 10px;">DataBase</a> <a href="/tags/Life/" style="font-size: 10px;">Life</a> <a href="/tags/ML/" style="font-size: 20px;">ML</a> <a href="/tags/Python/" style="font-size: 13.33px;">Python</a> <a href="/tags/backend/" style="font-size: 10px;">backend</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/database/" style="font-size: 10px;">database</a>
     </div>
   </div>
 
@@ -381,7 +691,7 @@ MASTER_CONNECT_RETRY=10;
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/01/">January 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li></ul>
     </div>
   </div>
 
@@ -389,28 +699,28 @@ MASTER_CONNECT_RETRY=10;
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">Articles récents</h3>
     <div class="widget">
       <ul>
         
           <li>
-            <a href="/2017/03/16/CRISP-DM/">CRISP-DM</a>
+            <a href="/2017/03/24/select-poll-epoll/">select_poll_epoll</a>
           </li>
         
           <li>
-            <a href="/2017/03/16/mongodb-Replica-Set-Deployment-Architectures/">mongodb_Replica_Set_Deployment_Architectures</a>
+            <a href="/2017/03/23/hello-world/">Hello World</a>
           </li>
         
           <li>
-            <a href="/2017/03/02/copy-on-write/">写时复制</a>
+            <a href="/2017/03/23/neural-network-notebook/">neural-network-notebook</a>
           </li>
         
           <li>
-            <a href="/2017/02/24/why-split-data-to-train-and-test/">为什么要分割数据以及交叉验证？</a>
+            <a href="/2017/03/23/tornado-source1/">tornado source code (1)</a>
           </li>
         
           <li>
-            <a href="/2017/02/24/Classic-And-Old-Class/">Classic-And-Old-Class</a>
+            <a href="/2017/03/21/meta-programming/">meta_programming</a>
           </li>
         
       </ul>
@@ -426,7 +736,7 @@ MASTER_CONNECT_RETRY=10;
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 KIDJourney<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
