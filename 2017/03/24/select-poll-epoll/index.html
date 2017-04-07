@@ -5,28 +5,25 @@
   
   <title>select_poll_epoll | Journey</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="DiffSelect和Epoll在大体上相同，在有些小细节上有些不同。
-功能上先看一下 man select 的用法
-int
-select(int nfds, fd_set *restrict readfds, fd_set *restrict writefds, fd_set *restrict errorfds,
-     struct timeval *restrict timeout);">
+  <meta name="description" content="C10K problemC10K问题在1999年被提出，随着技术的发展，又出现了C100K，C10M等等相近的问题，不过问题本质相同。
+这个问题的本质在于如何优化网络套接字，从而让服务器可同时处理大量的客户端请求。
+并发连接和每秒请求数(QPS)不同。QPS可以通过提高处理速度（吞吐量）来提高。而并发连接数则要靠对于资源调度来实现。
+Popular solution1.  一对一既每个请求使用一个">
 <meta property="og:type" content="article">
 <meta property="og:title" content="select_poll_epoll">
 <meta property="og:url" content="https://kidjourney.github.io/2017/03/24/select-poll-epoll/index.html">
 <meta property="og:site_name" content="Journey">
-<meta property="og:description" content="DiffSelect和Epoll在大体上相同，在有些小细节上有些不同。
-功能上先看一下 man select 的用法
-int
-select(int nfds, fd_set *restrict readfds, fd_set *restrict writefds, fd_set *restrict errorfds,
-     struct timeval *restrict timeout);">
-<meta property="og:updated_time" content="2017-03-24T08:48:27.000Z">
+<meta property="og:description" content="C10K problemC10K问题在1999年被提出，随着技术的发展，又出现了C100K，C10M等等相近的问题，不过问题本质相同。
+这个问题的本质在于如何优化网络套接字，从而让服务器可同时处理大量的客户端请求。
+并发连接和每秒请求数(QPS)不同。QPS可以通过提高处理速度（吞吐量）来提高。而并发连接数则要靠对于资源调度来实现。
+Popular solution1.  一对一既每个请求使用一个">
+<meta property="og:updated_time" content="2017-04-07T07:44:19.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="select_poll_epoll">
-<meta name="twitter:description" content="DiffSelect和Epoll在大体上相同，在有些小细节上有些不同。
-功能上先看一下 man select 的用法
-int
-select(int nfds, fd_set *restrict readfds, fd_set *restrict writefds, fd_set *restrict errorfds,
-     struct timeval *restrict timeout);">
+<meta name="twitter:description" content="C10K problemC10K问题在1999年被提出，随着技术的发展，又出现了C100K，C10M等等相近的问题，不过问题本质相同。
+这个问题的本质在于如何优化网络套接字，从而让服务器可同时处理大量的客户端请求。
+并发连接和每秒请求数(QPS)不同。QPS可以通过提高处理速度（吞吐量）来提高。而并发连接数则要靠对于资源调度来实现。
+Popular solution1.  一对一既每个请求使用一个">
   
     <link rel="alternate" href="/atom.xml" title="Journey" type="application/atom+xml">
   
@@ -105,7 +102,15 @@ select(int nfds, fd_set *restrict readfds, fd_set *restrict writefds, fd_set *re
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Diff"><a href="#Diff" class="headerlink" title="Diff"></a>Diff</h2><p>Select和Epoll在大体上相同，在有些小细节上有些不同。</p>
+        <h2 id="C10K-problem"><a href="#C10K-problem" class="headerlink" title="C10K problem"></a>C10K problem</h2><p>C10K问题在1999年被提出，随着技术的发展，又出现了C100K，C10M等等相近的问题，不过问题本质相同。</p>
+<p>这个问题的本质在于如何优化网络套接字，从而让服务器可同时处理大量的客户端请求。</p>
+<p>并发连接和每秒请求数(QPS)不同。QPS可以通过提高处理速度（吞吐量）来提高。而并发连接数则要靠对于资源调度来实现。</p>
+<h2 id="Popular-solution"><a href="#Popular-solution" class="headerlink" title="Popular solution"></a>Popular solution</h2><h3 id="1-一对一"><a href="#1-一对一" class="headerlink" title="1.  一对一"></a>1.  一对一</h3><p>既每个请求使用一个线程。</p>
+<p>这种处理方式主要有两个问题。<br>lea</p>
+<h4 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h4><p>linux的thread stack size是8MB(<code>ulimit -s</code>)，那么512个thread就可以撑爆一个32位主机的内存。这个问题在64位主机上的影响不大，但是处理10k请求就需要80GB内存，这还是有些可怕的。</p>
+<h4 id="上线文切换"><a href="#上线文切换" class="headerlink" title="上线文切换"></a>上线文切换</h4><p>排开内存问题外，更大的问题是上下文切换时带来的开销，这里我不太懂，可以参考这篇<a href="https://segmentfault.com/a/1190000001813992#articleHeader18" target="_blank" rel="external">Article</a>，讲的很详细。</p>
+<h3 id="2-就绪通知机制。"><a href="#2-就绪通知机制。" class="headerlink" title="2. 就绪通知机制。"></a>2. 就绪通知机制。</h3><p>也就是下面所说。</p>
+<h2 id="Diff"><a href="#Diff" class="headerlink" title="Diff"></a>Diff</h2><p>Select和Epoll在大体上相同，在有些小细节上有些不同。</p>
 <h3 id="功能上"><a href="#功能上" class="headerlink" title="功能上"></a>功能上</h3><p>先看一下 <code>man select</code> 的用法</p>
 <pre><code>int
 select(int nfds, fd_set *restrict readfds, fd_set *restrict writefds, fd_set *restrict errorfds,
@@ -129,7 +134,7 @@ select(int nfds, fd_set *restrict readfds, fd_set *restrict writefds, fd_set *re
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/2017/03/24/select-poll-epoll/index.html" data-id="cj0w8t44s000jvy9t6bis5gbq" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/2017/03/24/select-poll-epoll/index.html" data-id="cj17izykg000hyz9t2cxvtt0p" class="article-share-link">Share</a>
 
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li></ul>

@@ -5,25 +5,16 @@
   
   <title>tornado source code (1) | Journey</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Preface这是tornado源码分析的第一部分，主要讲ioloop的相关实现。
-C10K problemC10K问题在1999年被提出，随着技术的发展，又出现了C100K，C10M等等相近的问题，不过问题本质相同。
-这个问题的本质在于如何优化网络套接字，从而让服务器可同时处理大量的客户端请求。
-并发连接和每秒请求数(QPS)不同。QPS可以通过提高处理速度（吞吐量）来提高。而并发连接数则要靠对">
+  <meta name="description" content="Preface这是tornado源码分析的第一部分，主要讲ioloop的相关实现。">
 <meta property="og:type" content="article">
 <meta property="og:title" content="tornado source code (1)">
 <meta property="og:url" content="https://kidjourney.github.io/2017/03/23/tornado-source1/index.html">
 <meta property="og:site_name" content="Journey">
-<meta property="og:description" content="Preface这是tornado源码分析的第一部分，主要讲ioloop的相关实现。
-C10K problemC10K问题在1999年被提出，随着技术的发展，又出现了C100K，C10M等等相近的问题，不过问题本质相同。
-这个问题的本质在于如何优化网络套接字，从而让服务器可同时处理大量的客户端请求。
-并发连接和每秒请求数(QPS)不同。QPS可以通过提高处理速度（吞吐量）来提高。而并发连接数则要靠对">
-<meta property="og:updated_time" content="2017-03-23T11:06:18.000Z">
+<meta property="og:description" content="Preface这是tornado源码分析的第一部分，主要讲ioloop的相关实现。">
+<meta property="og:updated_time" content="2017-04-07T06:19:39.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="tornado source code (1)">
-<meta name="twitter:description" content="Preface这是tornado源码分析的第一部分，主要讲ioloop的相关实现。
-C10K problemC10K问题在1999年被提出，随着技术的发展，又出现了C100K，C10M等等相近的问题，不过问题本质相同。
-这个问题的本质在于如何优化网络套接字，从而让服务器可同时处理大量的客户端请求。
-并发连接和每秒请求数(QPS)不同。QPS可以通过提高处理速度（吞吐量）来提高。而并发连接数则要靠对">
+<meta name="twitter:description" content="Preface这是tornado源码分析的第一部分，主要讲ioloop的相关实现。">
   
     <link rel="alternate" href="/atom.xml" title="Journey" type="application/atom+xml">
   
@@ -103,17 +94,11 @@ C10K problemC10K问题在1999年被提出，随着技术的发展，又出现了
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>这是tornado源码分析的第一部分，主要讲ioloop的相关实现。</p>
-<h2 id="C10K-problem"><a href="#C10K-problem" class="headerlink" title="C10K problem"></a>C10K problem</h2><p>C10K问题在1999年被提出，随着技术的发展，又出现了C100K，C10M等等相近的问题，不过问题本质相同。</p>
-<p>这个问题的本质在于如何优化网络套接字，从而让服务器可同时处理大量的客户端请求。</p>
-<p>并发连接和每秒请求数(QPS)不同。QPS可以通过提高处理速度（吞吐量）来提高。而并发连接数则要靠对于资源调度来实现。</p>
-<h2 id="Popular-solution"><a href="#Popular-solution" class="headerlink" title="Popular solution"></a>Popular solution</h2><ol>
-<li>one client each thread<br>相当于在    </li>
-</ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/2017/03/23/tornado-source1/index.html" data-id="cj0w8t450000svy9tin4ii4m0" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/2017/03/23/tornado-source1/index.html" data-id="cj17izyki000jyz9t2p10137b" class="article-share-link">Share</a>
 
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>

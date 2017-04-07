@@ -91,7 +91,15 @@
     
     <div class="article-entry" itemprop="articleBody">
       
-        <h2 id="Diff"><a href="#Diff" class="headerlink" title="Diff"></a>Diff</h2><p>Select和Epoll在大体上相同，在有些小细节上有些不同。</p>
+        <h2 id="C10K-problem"><a href="#C10K-problem" class="headerlink" title="C10K problem"></a>C10K problem</h2><p>C10K问题在1999年被提出，随着技术的发展，又出现了C100K，C10M等等相近的问题，不过问题本质相同。</p>
+<p>这个问题的本质在于如何优化网络套接字，从而让服务器可同时处理大量的客户端请求。</p>
+<p>并发连接和每秒请求数(QPS)不同。QPS可以通过提高处理速度（吞吐量）来提高。而并发连接数则要靠对于资源调度来实现。</p>
+<h2 id="Popular-solution"><a href="#Popular-solution" class="headerlink" title="Popular solution"></a>Popular solution</h2><h3 id="1-一对一"><a href="#1-一对一" class="headerlink" title="1.  一对一"></a>1.  一对一</h3><p>既每个请求使用一个线程。</p>
+<p>这种处理方式主要有两个问题。<br>lea</p>
+<h4 id="内存"><a href="#内存" class="headerlink" title="内存"></a>内存</h4><p>linux的thread stack size是8MB(<code>ulimit -s</code>)，那么512个thread就可以撑爆一个32位主机的内存。这个问题在64位主机上的影响不大，但是处理10k请求就需要80GB内存，这还是有些可怕的。</p>
+<h4 id="上线文切换"><a href="#上线文切换" class="headerlink" title="上线文切换"></a>上线文切换</h4><p>排开内存问题外，更大的问题是上下文切换时带来的开销，这里我不太懂，可以参考这篇<a href="https://segmentfault.com/a/1190000001813992#articleHeader18" target="_blank" rel="external">Article</a>，讲的很详细。</p>
+<h3 id="2-就绪通知机制。"><a href="#2-就绪通知机制。" class="headerlink" title="2. 就绪通知机制。"></a>2. 就绪通知机制。</h3><p>也就是下面所说。</p>
+<h2 id="Diff"><a href="#Diff" class="headerlink" title="Diff"></a>Diff</h2><p>Select和Epoll在大体上相同，在有些小细节上有些不同。</p>
 <h3 id="功能上"><a href="#功能上" class="headerlink" title="功能上"></a>功能上</h3><p>先看一下 <code>man select</code> 的用法</p>
 <pre><code>int
 select(int nfds, fd_set *restrict readfds, fd_set *restrict writefds, fd_set *restrict errorfds,
@@ -115,7 +123,7 @@ select(int nfds, fd_set *restrict readfds, fd_set *restrict writefds, fd_set *re
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/index.html" data-id="cj0w8t44s000jvy9t6bis5gbq" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/index.html" data-id="cj17izykg000hyz9t2cxvtt0p" class="article-share-link">Share</a>
 
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li></ul>
@@ -150,17 +158,11 @@ select(int nfds, fd_set *restrict readfds, fd_set *restrict writefds, fd_set *re
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>这是tornado源码分析的第一部分，主要讲ioloop的相关实现。</p>
-<h2 id="C10K-problem"><a href="#C10K-problem" class="headerlink" title="C10K problem"></a>C10K problem</h2><p>C10K问题在1999年被提出，随着技术的发展，又出现了C100K，C10M等等相近的问题，不过问题本质相同。</p>
-<p>这个问题的本质在于如何优化网络套接字，从而让服务器可同时处理大量的客户端请求。</p>
-<p>并发连接和每秒请求数(QPS)不同。QPS可以通过提高处理速度（吞吐量）来提高。而并发连接数则要靠对于资源调度来实现。</p>
-<h2 id="Popular-solution"><a href="#Popular-solution" class="headerlink" title="Popular solution"></a>Popular solution</h2><ol>
-<li>one client each thread<br>相当于在    </li>
-</ol>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/index.html" data-id="cj0w8t450000svy9tin4ii4m0" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/index.html" data-id="cj17izyki000jyz9t2p10137b" class="article-share-link">Share</a>
 
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
@@ -198,7 +200,7 @@ select(int nfds, fd_set *restrict readfds, fd_set *restrict writefds, fd_set *re
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/index.html" data-id="cj0w8t44r000hvy9tras7uhtk" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/index.html" data-id="cj17izykl000oyz9tgl5yfcky" class="article-share-link">Share</a>
 
       
     </footer>
@@ -247,7 +249,7 @@ select(int nfds, fd_set *restrict readfds, fd_set *restrict writefds, fd_set *re
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/index.html" data-id="cj0w8t4480000vy9tqfzmw003" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/index.html" data-id="cj17izyju0000yz9t6ldf94r1" class="article-share-link">Share</a>
 
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ML/">ML</a></li></ul>
@@ -343,7 +345,7 @@ select(int nfds, fd_set *restrict readfds, fd_set *restrict writefds, fd_set *re
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/index.html" data-id="cj0w8t44y000pvy9t79hhd1zw" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/index.html" data-id="cj17izykk000myz9tzkb8aj7a" class="article-share-link">Share</a>
 
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/DataBase/">DataBase</a></li></ul>
@@ -389,7 +391,7 @@ select(int nfds, fd_set *restrict readfds, fd_set *restrict writefds, fd_set *re
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/index.html" data-id="cj0w8t44q000evy9tr31yfe1a" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/index.html" data-id="cj17izyk90009yz9te3lk99eq" class="article-share-link">Share</a>
 
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li></ul>
@@ -450,7 +452,7 @@ select(int nfds, fd_set *restrict readfds, fd_set *restrict writefds, fd_set *re
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/index.html" data-id="cj0w8t454000tvy9trdgqmxrd" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/index.html" data-id="cj17izykv000vyz9tgcvap580" class="article-share-link">Share</a>
 
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ML/">ML</a></li></ul>
@@ -585,7 +587,7 @@ I am NB
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/index.html" data-id="cj0w8t44g0003vy9tphqt5l14" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/index.html" data-id="cj17izyk20003yz9t05pqq84z" class="article-share-link">Share</a>
 
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
@@ -739,7 +741,7 @@ I am NB
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/index.html" data-id="cj0w8t44k0005vy9twdkuzc31" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/index.html" data-id="cj17izyk60005yz9tww96ie75" class="article-share-link">Share</a>
 
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/backend/">backend</a></li></ul>
@@ -806,7 +808,7 @@ I am NB
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/index.html" data-id="cj0w8t44h0004vy9tmebw2ovu" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/index.html" data-id="cj17izyjy0001yz9th4bz7c34" class="article-share-link">Share</a>
 
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li></ul>
