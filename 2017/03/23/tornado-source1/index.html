@@ -5,16 +5,40 @@
   
   <title>tornado source code (1) | Journey</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="Preface这是tornado源码分析的第一部分，主要讲ioloop的相关实现。">
+  <meta name="description" content="Preface这是tornado源码分析的第一部分，主要讲ioloop的相关实现。
+基本流程直接看源码往往会让人无从入手，我们最简单的例子开始。
+import tornado
+import tornado.ioloop
+import tornado.web
+
+
+class SimpleHandler(tornado.web.RequestHandler):
+    def get(self):">
 <meta property="og:type" content="article">
 <meta property="og:title" content="tornado source code (1)">
 <meta property="og:url" content="https://kidjourney.github.io/2017/03/23/tornado-source1/index.html">
 <meta property="og:site_name" content="Journey">
-<meta property="og:description" content="Preface这是tornado源码分析的第一部分，主要讲ioloop的相关实现。">
-<meta property="og:updated_time" content="2017-04-07T06:19:39.000Z">
+<meta property="og:description" content="Preface这是tornado源码分析的第一部分，主要讲ioloop的相关实现。
+基本流程直接看源码往往会让人无从入手，我们最简单的例子开始。
+import tornado
+import tornado.ioloop
+import tornado.web
+
+
+class SimpleHandler(tornado.web.RequestHandler):
+    def get(self):">
+<meta property="og:updated_time" content="2017-04-08T15:18:06.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="tornado source code (1)">
-<meta name="twitter:description" content="Preface这是tornado源码分析的第一部分，主要讲ioloop的相关实现。">
+<meta name="twitter:description" content="Preface这是tornado源码分析的第一部分，主要讲ioloop的相关实现。
+基本流程直接看源码往往会让人无从入手，我们最简单的例子开始。
+import tornado
+import tornado.ioloop
+import tornado.web
+
+
+class SimpleHandler(tornado.web.RequestHandler):
+    def get(self):">
   
     <link rel="alternate" href="/atom.xml" title="Journey" type="application/atom+xml">
   
@@ -59,9 +83,9 @@
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://kidjourney.github.io"></form>
@@ -94,11 +118,37 @@
     <div class="article-entry" itemprop="articleBody">
       
         <h2 id="Preface"><a href="#Preface" class="headerlink" title="Preface"></a>Preface</h2><p>这是tornado源码分析的第一部分，主要讲ioloop的相关实现。</p>
+<h2 id="基本流程"><a href="#基本流程" class="headerlink" title="基本流程"></a>基本流程</h2><p>直接看源码往往会让人无从入手，我们最简单的例子开始。</p>
+<pre><code>import tornado
+import tornado.ioloop
+import tornado.web
+
+
+class SimpleHandler(tornado.web.RequestHandler):
+    def get(self):
+        self.write(&quot;Test&quot;)
+
+
+if __name__ == &quot;__main__&quot;:
+    app = tornado.web.Application([
+        (&#39;/&#39;, SimpleHandler)
+    ])
+    app.listen(2333)
+    tornado.ioloop.IOLoop.current().start()
+</code></pre><p>从这个简单的例子里，我们干了这几件事：</p>
+<ul>
+<li>定义了一个<code>Handler</code></li>
+<li>用<code>Handler</code>实例化了一个<code>Application</code></li>
+<li><code>Application</code>监听端口。</li>
+<li>开始<code>ioloop</code></li>
+</ul>
+<p>其中最重要的就是<code>IOLoop</code>，<code>tornado</code>所有的膜法基本都集中在这个类中。</p>
+<h2 id="IOLoop"><a href="#IOLoop" class="headerlink" title="IOLoop"></a>IOLoop</h2><p>初见IOLoop这个类我是很懵逼的，<code>Epoll</code>呢？<code>Select</code>呢？除了<code>current</code>这个用来获取单例的静态方法外，<code>start</code>和其他一些Handler相关的方法都是<code>NotImplemented</code>，</p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/2017/03/23/tornado-source1/index.html" data-id="cj17izyki000jyz9t2p10137b" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/2017/03/23/tornado-source1/index.html" data-id="cj19fva0y000qkihouteannbt" class="article-share-link">Partager</a>
 
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
@@ -110,7 +160,7 @@
 <nav id="article-nav">
   
     <a href="/2017/03/24/select-poll-epoll/" id="article-nav-newer" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Newer</strong>
+      <strong class="article-nav-caption">Récent</strong>
       <div class="article-nav-title">
         
           select_poll_epoll
@@ -120,7 +170,7 @@
   
   
     <a href="/2017/03/21/meta-programming/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
+      <strong class="article-nav-caption">Ancien</strong>
       <div class="article-nav-title">meta_programming</div>
     </a>
   
@@ -138,7 +188,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
+    <h3 class="widget-title">Mot-clés</h3>
     <div class="widget">
       <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CS/">CS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataBase/">DataBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ML/">ML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backend/">backend</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li></ul>
     </div>
@@ -148,7 +198,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
+    <h3 class="widget-title">Nuage de mot-clés</h3>
     <div class="widget tagcloud">
       <a href="/tags/CS/" style="font-size: 16.67px;">CS</a> <a href="/tags/DataBase/" style="font-size: 10px;">DataBase</a> <a href="/tags/Life/" style="font-size: 10px;">Life</a> <a href="/tags/ML/" style="font-size: 20px;">ML</a> <a href="/tags/Python/" style="font-size: 13.33px;">Python</a> <a href="/tags/backend/" style="font-size: 10px;">backend</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/database/" style="font-size: 10px;">database</a>
     </div>
@@ -167,7 +217,7 @@
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">Articles récents</h3>
     <div class="widget">
       <ul>
         
@@ -204,7 +254,7 @@
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 KIDJourney<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>

@@ -17,7 +17,7 @@ Popular solution1.  一对一既每个请求使用一个">
 这个问题的本质在于如何优化网络套接字，从而让服务器可同时处理大量的客户端请求。
 并发连接和每秒请求数(QPS)不同。QPS可以通过提高处理速度（吞吐量）来提高。而并发连接数则要靠对于资源调度来实现。
 Popular solution1.  一对一既每个请求使用一个">
-<meta property="og:updated_time" content="2017-04-07T07:44:19.000Z">
+<meta property="og:updated_time" content="2017-04-07T07:46:15.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="select_poll_epoll">
 <meta name="twitter:description" content="C10K problemC10K问题在1999年被提出，随着技术的发展，又出现了C100K，C10M等等相近的问题，不过问题本质相同。
@@ -68,9 +68,9 @@ Popular solution1.  一对一既每个请求使用一个">
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://kidjourney.github.io"></form>
@@ -130,11 +130,12 @@ select(int nfds, fd_set *restrict readfds, fd_set *restrict writefds, fd_set *re
 <h2 id="Farther-Reading"><a href="#Farther-Reading" class="headerlink" title="Farther Reading"></a>Farther Reading</h2><p><a href="http://stackoverflow.com/a/3951845/3994063" target="_blank" rel="external">StackOverFlow</a></p>
 <p><a href="http://www.kegel.com/c10k.html" target="_blank" rel="external">C10K Problem</a></p>
 <p><a href="https://daniel.haxx.se/docs/poll-vs-select.html" target="_blank" rel="external">poll vs select vs event-based</a></p>
+<p><a href="https://segmentfault.com/a/1190000001813992" target="_blank" rel="external">QiNiu</a></p>
 
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/2017/03/24/select-poll-epoll/index.html" data-id="cj17izykg000hyz9t2cxvtt0p" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/2017/03/24/select-poll-epoll/index.html" data-id="cj19fva0s000jkihoewa31n5s" class="article-share-link">Partager</a>
 
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li></ul>
@@ -147,7 +148,7 @@ select(int nfds, fd_set *restrict readfds, fd_set *restrict writefds, fd_set *re
   
   
     <a href="/2017/03/23/tornado-source1/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
+      <strong class="article-nav-caption">Ancien</strong>
       <div class="article-nav-title">tornado source code (1)</div>
     </a>
   
@@ -165,7 +166,7 @@ select(int nfds, fd_set *restrict readfds, fd_set *restrict writefds, fd_set *re
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
+    <h3 class="widget-title">Mot-clés</h3>
     <div class="widget">
       <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CS/">CS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataBase/">DataBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ML/">ML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backend/">backend</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li></ul>
     </div>
@@ -175,7 +176,7 @@ select(int nfds, fd_set *restrict readfds, fd_set *restrict writefds, fd_set *re
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
+    <h3 class="widget-title">Nuage de mot-clés</h3>
     <div class="widget tagcloud">
       <a href="/tags/CS/" style="font-size: 16.67px;">CS</a> <a href="/tags/DataBase/" style="font-size: 10px;">DataBase</a> <a href="/tags/Life/" style="font-size: 10px;">Life</a> <a href="/tags/ML/" style="font-size: 20px;">ML</a> <a href="/tags/Python/" style="font-size: 13.33px;">Python</a> <a href="/tags/backend/" style="font-size: 10px;">backend</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/database/" style="font-size: 10px;">database</a>
     </div>
@@ -194,7 +195,7 @@ select(int nfds, fd_set *restrict readfds, fd_set *restrict writefds, fd_set *re
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">Articles récents</h3>
     <div class="widget">
       <ul>
         
@@ -231,7 +232,7 @@ select(int nfds, fd_set *restrict readfds, fd_set *restrict writefds, fd_set *re
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 KIDJourney<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
