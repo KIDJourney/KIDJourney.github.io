@@ -27,7 +27,7 @@ import tornado.web
 
 class SimpleHandler(tornado.web.RequestHandler):
     def get(self):">
-<meta property="og:updated_time" content="2017-04-08T15:18:06.000Z">
+<meta property="og:updated_time" content="2017-04-11T05:35:11.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="tornado source code (1)">
 <meta name="twitter:description" content="Preface这是tornado源码分析的第一部分，主要讲ioloop的相关实现。
@@ -143,12 +143,71 @@ if __name__ == &quot;__main__&quot;:
 <li>开始<code>ioloop</code></li>
 </ul>
 <p>其中最重要的就是<code>IOLoop</code>，<code>tornado</code>所有的膜法基本都集中在这个类中。</p>
-<h2 id="IOLoop"><a href="#IOLoop" class="headerlink" title="IOLoop"></a>IOLoop</h2><p>初见IOLoop这个类我是很懵逼的，<code>Epoll</code>呢？<code>Select</code>呢？除了<code>current</code>这个用来获取单例的静态方法外，<code>start</code>和其他一些Handler相关的方法都是<code>NotImplemented</code>，</p>
+<h2 id="IOLoop"><a href="#IOLoop" class="headerlink" title="IOLoop"></a>IOLoop</h2><p>初见IOLoop这个类我是很懵逼的，<code>Epoll</code>呢？<code>Select</code>呢？除了<code>current</code>这个用来获取单例的静态方法外，<code>start</code>和其他一些Handler相关的方法都是<code>NotImplemented</code>，下面的<code>instance</code>函数也只是做了一下单例检查。</p>
+<pre><code>@staticmethod
+def instance():
+    &quot;&quot;&quot;Returns a global `IOLoop` instance.
 
+    Most applications have a single, global `IOLoop` running on the
+    main thread.  Use this method to get this instance from
+    another thread.  In most other cases, it is better to use `current()`
+    to get the current thread&#39;s `IOLoop`.
+    &quot;&quot;&quot;
+    if not hasattr(IOLoop, &quot;_instance&quot;):
+        with IOLoop._instance_lock:
+            if not hasattr(IOLoop, &quot;_instance&quot;):
+                # New instance after double check
+                IOLoop._instance = IOLoop()
+    return IOLoop._instance
+</code></pre><p>子类看不出门道，那就回到父类看。</p>
+<p>在<code>Configurable</code>这个类中，我们发现<code>__new__</code>方法被改写了，实例的创建逻辑被修改。</p>
+<pre><code>def __new__(cls, *args, **kwargs):
+    base = cls.configurable_base()
+    init_kwargs = {}
+    if cls is base:
+        impl = cls.configured_class()
+        if base.__impl_kwargs:
+            init_kwargs.update(base.__impl_kwargs)
+    else:
+        impl = cls
+    init_kwargs.update(kwargs)
+    instance = super(Configurable, cls).__new__(impl)
+    # initialize vs __init__ chosen for compatibility with AsyncHTTPClient
+    # singleton magic.  If we get rid of that we can switch to __init__
+    # here too.
+    instance.initialize(*args, **init_kwargs)
+    return instance
+</code></pre><p>在<code>IOLoop</code>创建实例时创建出的实际是<code>IOLoop.configured_class()</code>,而在<code>configured_class</code>中，又取了<code>IOLoop</code>的<code>configurable_default</code>。</p>
+<pre><code># IOLoop.configurable_default
+@classmethod
+def configurable_default(cls):
+    if hasattr(select, &quot;epoll&quot;):
+        from tornado.platform.epoll import EPollIOLoop
+        return EPollIOLoop
+    if hasattr(select, &quot;kqueue&quot;):
+        # Python 2.6+ on BSD or Mac
+        from tornado.platform.kqueue import KQueueIOLoop
+        return KQueueIOLoop
+    from tornado.platform.select import SelectIOLoop
+    return SelectIOLoop
+</code></pre><p>可以看到，在<code>configurable_default</code>中，tornado按照平台差异，取了不同的异步实现方式。<em><code>IOLoop</code>实际创建的实例其实也是这几个之中的一个。</em></p>
+<p>以Linux为例，看一下<code>EPollIOLoop</code>的实现，</p>
+<pre><code>class EPollIOLoop(PollIOLoop):
+    def initialize(self, **kwargs):
+        super(EPollIOLoop, self).initialize(impl=select.epoll(), **kwargs)
+</code></pre><p>其中<code>EPollIOLoop</code>只修改了<code>PollIOLoop</code>中<code>initialize</code>的参数，实际逻辑在<code>PollIOLoop</code>中。</p>
+<p>OK， 到这里，我们整理一下。</p>
+<ul>
+<li><code>current</code>创建/获取了一个<code>IOLoop</code>对象。</li>
+<li><code>IOLoop</code>重写了<code>__new__</code>方法，从而使实际构建的实例是平台相关的。</li>
+<li>实例本身不包含逻辑，只是改写了<code>PollIOLoop</code>的初始化参数。</li>
+</ul>
+<p>绕了一大圈，总算找到了实际的实现逻辑。</p>
+<h2 id="PollIOLoop"><a href="#PollIOLoop" class="headerlink" title="PollIOLoop"></a>PollIOLoop</h2>
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/2017/03/23/tornado-source1/index.html" data-id="cj19fw5qc000rmwhosp823brq" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/2017/03/23/tornado-source1/index.html" data-id="cj1f3qrce000sqs9t6r8zrmgl" class="article-share-link">Share</a>
 
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
