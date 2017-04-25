@@ -27,7 +27,7 @@ import tornado.web
 
 class SimpleHandler(tornado.web.RequestHandler):
     def get(self):">
-<meta property="og:updated_time" content="2017-04-11T05:35:11.000Z">
+<meta property="og:updated_time" content="2017-04-25T15:07:10.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="tornado source code (1)">
 <meta name="twitter:description" content="Preface这是tornado源码分析的第一部分，主要讲ioloop的相关实现。
@@ -203,11 +203,91 @@ def configurable_default(cls):
 <li>实例本身不包含逻辑，只是改写了<code>PollIOLoop</code>的初始化参数。</li>
 </ul>
 <p>绕了一大圈，总算找到了实际的实现逻辑。</p>
-<h2 id="PollIOLoop"><a href="#PollIOLoop" class="headerlink" title="PollIOLoop"></a>PollIOLoop</h2>
+<h2 id="PollIOLoop"><a href="#PollIOLoop" class="headerlink" title="PollIOLoop"></a>PollIOLoop</h2><p>大致过了一遍这个类，是否觉得豁然开朗？不管是<code>add_handler</code>、<code>update_handler</code>,<code>remove_handler</code>这几个事件相关的函数，还是<code>start</code>这个运行整个世界的<code>golden key</code>，都在这里面实现了。</p>
+<p>从这几个事件注册相关的函数开始，我们看看<code>tornado</code>的魔法究竟是如何实现的。</p>
+<h3 id="add-handler"><a href="#add-handler" class="headerlink" title="add_handler"></a>add_handler</h3><pre><code>def add_handler(self, fd, handler, events):
+    fd, obj = self.split_fd(fd)
+    self._handlers[fd] = (obj, stack_context.wrap(handler))
+    self._impl.register(fd, events | self.ERROR)
+</code></pre><p><code>add_handler</code>中，<code>tornado</code>将文件对象与<a href="https://en.wikipedia.org/wiki/File_descriptor" target="_blank" rel="external">文件描述符</a>（<code>fd</code>）分开，建立了<code>fd</code>到handler之间的映射，并且在<code>_impl</code>（此处是<code>select.epoll()</code>）建注册了<code>fd</code>上的事件，<code>update_handler</code>和<code>remove_handler</code>做的也是如其名的功能，不再赘述。</p>
+<h3 id="start"><a href="#start" class="headerlink" title="start"></a>start</h3><p>The Golden Key</p>
+<p>整个程序的主循环。</p>
+<p><code>start</code>中前半部分都在处理<code>timeout</code>和<code>Waker</code>相关的逻辑，在这里还没有直接遇到，先跳过。</p>
+<p>直接看<code>While True</code>里面的东西。</p>
+<pre><code>try:
+    event_pairs = self._impl.poll(poll_timeout)
+except Exception as e:
+    # Depending on python version and IOLoop implementation,
+    # different exception types may be thrown and there are
+    # two ways EINTR might be signaled:
+    # * e.errno == errno.EINTR
+    # * e.args is like (errno.EINTR, &#39;Interrupted system call&#39;)
+    if errno_from_exception(e) == errno.EINTR:
+        continue
+    else:
+        raise
+</code></pre><p>可以看到，主循环中通过<code>poll</code>方法得到最新的事件，通过事件对应的fd得到相应的handler，再用handler处理这个事件。</p>
+<p>整个事件循环的流程大致如下。</p>
+<p><code>add_handler</code> -&gt; <code>poll event</code> -&gt; <code>handle event</code> </p>
+<p>至此，整个torando的<code>ioloop</code>已经较为清晰的展现在我们面前，但是<code>Application</code>等相关handler如何被注入到这个<code>ioloop</code>中的，这些会在之后的笔记中写出。</p>
+<h2 id="作业"><a href="#作业" class="headerlink" title="作业"></a>作业</h2><p>用epoll写一个简单的返回helloworld的非阻塞异步http服务器。</p>
+<pre><code>import select
+import socket
+
+response = b&#39;HTTP/1.0 200 OK\r\nDate: Mon, 1 Jan 1996 01:01:01 GMT\r\n&#39;
+response += b&#39;Content-Type: text/plain\r\nContent-Length: 13\r\n\r\n&#39;
+response += b&#39;Hello, world!&#39;
+
+server = socket.socket(socket.AF_INET, socket.SOCK_STREAM)
+server.setsockopt(socket.SOL_SOCKET, socket.SO_REUSEADDR, 1)
+server.bind((&#39;0.0.0.0&#39;, 8080))
+server.listen(1)
+server.setblocking(0)
+
+event_imp = select.epoll()
+event_imp.register(server.fileno(), select.EPOLLIN)
+
+try:
+    connections = {}
+    requests = {}
+    responses = {}
+
+    while True:
+        event_pair = event_imp.poll(1)
+        for fileno, event in event_pair:
+            if fileno == server.fileno():
+                connection, address = server.accept()
+                connection.setblocking(0)
+                event_imp.register(connection.fileno(), select.EPOLLIN)
+                connections[connection.fileno()] = connection
+                requests[connection.fileno()] = b&#39;&#39;
+                responses[connection.fileno()] = response
+                print(connections)
+            elif event &amp; select.EPOLLIN:
+                requests[fileno] += connections[fileno].recv(1024)
+                event_imp.modify(fileno, select.EPOLLOUT)
+                print(&quot;Get request from %s : %s&quot; % (connection, requests[fileno]))
+            elif event &amp; select.EPOLLOUT:
+                sent = connections[fileno].send(responses[fileno])
+                responses[fileno] = responses[fileno][sent:]
+                if len(responses[fileno]) == 0:
+                    event_imp.modify(fileno, 0)
+                connections[fileno].shutdown(socket.SHUT_RDWR)
+            elif event &amp; select.EPOLLHUP:
+                event_imp.unregister(fileno)
+                connections[fileno].close()
+                del connections[fileno]
+finally:
+    event_imp.unregister(server.fileno())
+    event_imp.close()
+    server.close()
+</code></pre><p>可以看到，我们在一开始将监听TCP连接的socket在<code>epoll</code>上注册了<code>EPOLLIN</code>事件，并在新连接可用时为新连接注册了<code>EPOLLIN</code>事件，当新连接的内容接受完毕时，我们将连接注册的事件改为了<code>EPOLLOUT</code>，并在该fd可写时发送了HTTP报文。</p>
+<p>这其实就是Tornado IOLoop最简化版的实现。</p>
+
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/2017/03/23/tornado-source1/index.html" data-id="cj1f3qrce000sqs9t6r8zrmgl" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/2017/03/23/tornado-source1/index.html" data-id="cj1xoqquf000qsahofepd608x" class="article-share-link">Share</a>
 
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Python/">Python</a></li></ul>
