@@ -3,23 +3,23 @@
 <head>
   <meta charset="utf-8">
   
-  <title>select_poll_epoll | Journey</title>
+  <title>Epoll模型 | Journey</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
   <meta name="description" content="C10K problemC10K问题在1999年被提出，随着技术的发展，又出现了C100K，C10M等等相近的问题，不过问题本质相同。
 这个问题的本质在于如何优化网络套接字，从而让服务器可同时处理大量的客户端请求。
 并发连接和每秒请求数(QPS)不同。QPS可以通过提高处理速度（吞吐量）来提高。而并发连接数则要靠对于资源调度来实现。
 Popular solution1.  一对一既每个请求使用一个">
 <meta property="og:type" content="article">
-<meta property="og:title" content="select_poll_epoll">
+<meta property="og:title" content="Epoll模型">
 <meta property="og:url" content="https://kidjourney.github.io/2017/03/24/select-poll-epoll/index.html">
 <meta property="og:site_name" content="Journey">
 <meta property="og:description" content="C10K problemC10K问题在1999年被提出，随着技术的发展，又出现了C100K，C10M等等相近的问题，不过问题本质相同。
 这个问题的本质在于如何优化网络套接字，从而让服务器可同时处理大量的客户端请求。
 并发连接和每秒请求数(QPS)不同。QPS可以通过提高处理速度（吞吐量）来提高。而并发连接数则要靠对于资源调度来实现。
 Popular solution1.  一对一既每个请求使用一个">
-<meta property="og:updated_time" content="2017-04-07T07:46:15.000Z">
+<meta property="og:updated_time" content="2017-04-26T09:33:18.000Z">
 <meta name="twitter:card" content="summary">
-<meta name="twitter:title" content="select_poll_epoll">
+<meta name="twitter:title" content="Epoll模型">
 <meta name="twitter:description" content="C10K problemC10K问题在1999年被提出，随着技术的发展，又出现了C100K，C10M等等相近的问题，不过问题本质相同。
 这个问题的本质在于如何优化网络套接字，从而让服务器可同时处理大量的客户端请求。
 并发连接和每秒请求数(QPS)不同。QPS可以通过提高处理速度（吞吐量）来提高。而并发连接数则要靠对于资源调度来实现。
@@ -94,7 +94,7 @@ Popular solution1.  一对一既每个请求使用一个">
         
   
     <h1 class="article-title" itemprop="name">
-      select_poll_epoll
+      Epoll模型
     </h1>
   
 
@@ -135,7 +135,7 @@ select(int nfds, fd_set *restrict readfds, fd_set *restrict writefds, fd_set *re
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/2017/03/24/select-poll-epoll/index.html" data-id="cj1ys5rr8000zx99t9y80a68m" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/2017/03/24/select-poll-epoll/index.html" data-id="cj1ys92gd000m329tsmath9dc" class="article-share-link">Share</a>
 
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li></ul>
@@ -200,7 +200,7 @@ select(int nfds, fd_set *restrict readfds, fd_set *restrict writefds, fd_set *re
       <ul>
         
           <li>
-            <a href="/2017/03/24/select-poll-epoll/">select_poll_epoll</a>
+            <a href="/2017/03/24/select-poll-epoll/">Epoll模型</a>
           </li>
         
           <li>
