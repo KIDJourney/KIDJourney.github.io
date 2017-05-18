@@ -68,9 +68,9 @@ Popular solution1.  一对一既每个请求使用一个">
       </nav>
       <nav id="sub-nav">
         
-          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="RSS Feed"></a>
+          <a id="nav-rss-link" class="nav-icon" href="/atom.xml" title="Flux RSS"></a>
         
-        <a id="nav-search-btn" class="nav-icon" title="Search"></a>
+        <a id="nav-search-btn" class="nav-icon" title="Rechercher"></a>
       </nav>
       <div id="search-form-wrap">
         <form action="//google.com/search" method="get" accept-charset="UTF-8" class="search-form"><input type="search" name="q" results="0" class="search-form-input" placeholder="Search"><button type="submit" class="search-form-submit">&#xF002;</button><input type="hidden" name="sitesearch" value="https://kidjourney.github.io"></form>
@@ -135,7 +135,7 @@ select(int nfds, fd_set *restrict readfds, fd_set *restrict writefds, fd_set *re
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/2017/03/24/select-poll-epoll/index.html" data-id="cj1ys92gd000m329tsmath9dc" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/2017/03/24/select-poll-epoll/index.html" data-id="cj2h197dl000m649t8pnifbbl" class="article-share-link">Partager</a>
 
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li></ul>
@@ -143,16 +143,44 @@ select(int nfds, fd_set *restrict readfds, fd_set *restrict writefds, fd_set *re
     </footer>
   </div>
   
-    
+      
 <nav id="article-nav">
+  
+    <a href="/2017/05/08/thrift-http/" id="article-nav-newer" class="article-nav-link-wrap">
+      <strong class="article-nav-caption">Récent</strong>
+      <div class="article-nav-title">
+        
+          thrift&amp;http
+        
+      </div>
+    </a>
   
   
     <a href="/2017/03/23/tornado-source1/" id="article-nav-older" class="article-nav-link-wrap">
-      <strong class="article-nav-caption">Older</strong>
+      <strong class="article-nav-caption">Ancien</strong>
       <div class="article-nav-title">tornado 源码分析(1)</div>
     </a>
   
 </nav>
+
+      <div id="disqus_thread"></div>
+<script>
+/**
+*  RECOMMENDED CONFIGURATION VARIABLES: EDIT AND UNCOMMENT THE SECTION BELOW TO INSERT DYNAMIC VALUES FROM YOUR PLATFORM OR CMS.
+*  LEARN WHY DEFINING THESE VARIABLES IS IMPORTANT: https://disqus.com/admin/universalcode/#configuration-variables*/
+var disqus_config = function () {
+this.page.url = "https://kidjourney.github.io/2017/03/24/select-poll-epoll/index.html";  // Replace PAGE_URL with your page's canonical URL variable
+this.page.identifier = "Epoll模型-select-poll-epoll"; // Replace PAGE_IDENTIFIER with your page's unique identifier variable
+};
+
+(function() { // DON'T EDIT BELOW THIS LINE
+var d = document, s = d.createElement('script');
+s.src = 'https://kidjourney-github-io.disqus.com/embed.js';
+s.setAttribute('data-timestamp', +new Date());
+(d.head || d.body).appendChild(s);
+})();
+</script>
+<noscript>Please enable JavaScript to view the <a href="https://disqus.com/?ref_noscript">comments powered by Disqus.</a></noscript>
 
   
 </article>
@@ -166,7 +194,7 @@ select(int nfds, fd_set *restrict readfds, fd_set *restrict writefds, fd_set *re
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tags</h3>
+    <h3 class="widget-title">Mot-clés</h3>
     <div class="widget">
       <ul class="tag-list"><li class="tag-list-item"><a class="tag-list-link" href="/tags/CS/">CS</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/DataBase/">DataBase</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Life/">Life</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/ML/">ML</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/Python/">Python</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/backend/">backend</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/blog/">blog</a></li><li class="tag-list-item"><a class="tag-list-link" href="/tags/database/">database</a></li></ul>
     </div>
@@ -176,9 +204,9 @@ select(int nfds, fd_set *restrict readfds, fd_set *restrict writefds, fd_set *re
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Tag Cloud</h3>
+    <h3 class="widget-title">Nuage de mot-clés</h3>
     <div class="widget tagcloud">
-      <a href="/tags/CS/" style="font-size: 16.67px;">CS</a> <a href="/tags/DataBase/" style="font-size: 10px;">DataBase</a> <a href="/tags/Life/" style="font-size: 10px;">Life</a> <a href="/tags/ML/" style="font-size: 20px;">ML</a> <a href="/tags/Python/" style="font-size: 13.33px;">Python</a> <a href="/tags/backend/" style="font-size: 10px;">backend</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/database/" style="font-size: 10px;">database</a>
+      <a href="/tags/CS/" style="font-size: 20px;">CS</a> <a href="/tags/DataBase/" style="font-size: 10px;">DataBase</a> <a href="/tags/Life/" style="font-size: 10px;">Life</a> <a href="/tags/ML/" style="font-size: 16.67px;">ML</a> <a href="/tags/Python/" style="font-size: 13.33px;">Python</a> <a href="/tags/backend/" style="font-size: 10px;">backend</a> <a href="/tags/blog/" style="font-size: 10px;">blog</a> <a href="/tags/database/" style="font-size: 10px;">database</a>
     </div>
   </div>
 
@@ -187,7 +215,7 @@ select(int nfds, fd_set *restrict readfds, fd_set *restrict writefds, fd_set *re
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li></ul>
     </div>
   </div>
 
@@ -195,9 +223,13 @@ select(int nfds, fd_set *restrict readfds, fd_set *restrict writefds, fd_set *re
   
     
   <div class="widget-wrap">
-    <h3 class="widget-title">Recent Posts</h3>
+    <h3 class="widget-title">Articles récents</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2017/05/08/thrift-http/">thrift&amp;http</a>
+          </li>
         
           <li>
             <a href="/2017/03/24/select-poll-epoll/">Epoll模型</a>
@@ -209,10 +241,6 @@ select(int nfds, fd_set *restrict readfds, fd_set *restrict writefds, fd_set *re
         
           <li>
             <a href="/2017/03/21/meta-programming/">meta_programming</a>
-          </li>
-        
-          <li>
-            <a href="/2017/03/16/CRISP-DM/">CRISP-DM</a>
           </li>
         
           <li>
@@ -232,7 +260,7 @@ select(int nfds, fd_set *restrict readfds, fd_set *restrict writefds, fd_set *re
   <div class="outer">
     <div id="footer-info" class="inner">
       &copy; 2017 KIDJourney<br>
-      Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
+      Propulsé by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
 </footer>
