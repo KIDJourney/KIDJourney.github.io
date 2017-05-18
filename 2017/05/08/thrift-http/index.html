@@ -5,9 +5,7 @@
   
   <title>thrift&amp;http | Journey</title>
   <meta name="viewport" content="width=device-width, initial-scale=1, maximum-scale=1">
-  <meta name="description" content="摘自我在美团的内部分享
-
-WhatThrift: Apache基金会下的软件栈，提供了根据IDL进行RPC的PRC工具。
+  <meta name="description" content="WhatThrift: Apache基金会下的软件栈，提供了根据IDL进行RPC的PRC工具。
 目前的RPC方案
 HTTP/JSON/XML/REST (当前方案)
 Thrift (Apache)
@@ -17,14 +15,13 @@ HTTP
 跨语言
 缺乏协议描述（你需要什么，你会给我什么）
 需要同时维护client和server
-需要在HTTP上在定">
+需要在HTTP上在定义一层自己的封装
+一次请求的">
 <meta property="og:type" content="article">
 <meta property="og:title" content="thrift&http">
 <meta property="og:url" content="https://kidjourney.github.io/2017/05/08/thrift-http/index.html">
 <meta property="og:site_name" content="Journey">
-<meta property="og:description" content="摘自我在美团的内部分享
-
-WhatThrift: Apache基金会下的软件栈，提供了根据IDL进行RPC的PRC工具。
+<meta property="og:description" content="WhatThrift: Apache基金会下的软件栈，提供了根据IDL进行RPC的PRC工具。
 目前的RPC方案
 HTTP/JSON/XML/REST (当前方案)
 Thrift (Apache)
@@ -34,15 +31,14 @@ HTTP
 跨语言
 缺乏协议描述（你需要什么，你会给我什么）
 需要同时维护client和server
-需要在HTTP上在定">
+需要在HTTP上在定义一层自己的封装
+一次请求的">
 <meta property="og:image" content="https://kidjourney.github.io/images/layer.png">
 <meta property="og:image" content="https://kidjourney.github.io/images/servers.png">
-<meta property="og:updated_time" content="2017-05-18T11:20:28.000Z">
+<meta property="og:updated_time" content="2017-05-18T11:58:54.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="thrift&http">
-<meta name="twitter:description" content="摘自我在美团的内部分享
-
-WhatThrift: Apache基金会下的软件栈，提供了根据IDL进行RPC的PRC工具。
+<meta name="twitter:description" content="WhatThrift: Apache基金会下的软件栈，提供了根据IDL进行RPC的PRC工具。
 目前的RPC方案
 HTTP/JSON/XML/REST (当前方案)
 Thrift (Apache)
@@ -52,7 +48,8 @@ HTTP
 跨语言
 缺乏协议描述（你需要什么，你会给我什么）
 需要同时维护client和server
-需要在HTTP上在定">
+需要在HTTP上在定义一层自己的封装
+一次请求的">
 <meta name="twitter:image" content="https://kidjourney.github.io/images/layer.png">
   
     <link rel="alternate" href="/atom.xml" title="Journey" type="application/atom+xml">
@@ -132,10 +129,7 @@ HTTP
     
     <div class="article-entry" itemprop="articleBody">
       
-        <blockquote>
-<p>摘自我在美团的内部分享</p>
-</blockquote>
-<h2 id="What"><a href="#What" class="headerlink" title="What"></a>What</h2><p>Thrift: Apache基金会下的软件栈，提供了根据IDL进行RPC的PRC工具。</p>
+        <h2 id="What"><a href="#What" class="headerlink" title="What"></a>What</h2><p>Thrift: Apache基金会下的软件栈，提供了根据IDL进行RPC的PRC工具。</p>
 <h2 id="目前的RPC方案"><a href="#目前的RPC方案" class="headerlink" title="目前的RPC方案"></a>目前的RPC方案</h2><ul>
 <li>HTTP/JSON/XML/REST (当前方案)</li>
 <li>Thrift (Apache)</li>
@@ -237,8 +231,7 @@ transport.close()
 <li>Python thread server suck</li>
 <li>服务端和客户端的协议必须相同</li>
 </ul>
-<h2 id="Thrift-只是协议和工具集，重要的还是服务治理。"><a href="#Thrift-只是协议和工具集，重要的还是服务治理。" class="headerlink" title="Thrift 只是协议和工具集，重要的还是服务治理。"></a>Thrift 只是协议和工具集，重要的还是服务治理。</h2><h2 id="eleme-amp-Meituan-服务治理"><a href="#eleme-amp-Meituan-服务治理" class="headerlink" title="eleme &amp; Meituan 服务治理"></a>eleme &amp; Meituan 服务治理</h2><p>之前在eleme主要做业务开发，对整个服务治理了解的不够深入，结合美团octo治理平台，大概总结了下。 </p>
-<h2 id="服务治理平台"><a href="#服务治理平台" class="headerlink" title="服务治理平台"></a>服务治理平台</h2><ul>
+<h1 id="Thrift-只是协议和工具集，重要的还是服务治理。"><a href="#Thrift-只是协议和工具集，重要的还是服务治理。" class="headerlink" title="Thrift 只是协议和工具集，重要的还是服务治理。"></a>Thrift 只是协议和工具集，重要的还是服务治理。</h1><h2 id="服务治理平台"><a href="#服务治理平台" class="headerlink" title="服务治理平台"></a>服务治理平台</h2><ul>
 <li>服务注册，服务发现（自动化的endpoint）</li>
 <li>自动扩容、自动缩容</li>
 <li>服务管理，状态监测，健康检查，负载均衡</li>
@@ -246,11 +239,6 @@ transport.close()
 <li>调用链（重要），接口健康性监控</li>
 <li>配置中心</li>
 <li>ACL</li>
-</ul>
-<h2 id="瞎搞的框架-Sol"><a href="#瞎搞的框架-Sol" class="headerlink" title="瞎搞的框架 Sol"></a>瞎搞的框架 Sol</h2><ul>
-<li>pickle + tcp + asyio</li>
-<li>etcd </li>
-<li>服务注册+服务发现</li>
 </ul>
 <h2 id="链路分析"><a href="#链路分析" class="headerlink" title="链路分析"></a>链路分析</h2><p>为什么链路分析很重要？</p>
 <ul>
@@ -263,7 +251,7 @@ transport.close()
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/2017/05/08/thrift-http/index.html" data-id="cj2ubrv3s000hf99tz5odn5mb" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/2017/05/08/thrift-http/index.html" data-id="cj2ud8d82000q7h9tauiisagi" class="article-share-link">Share</a>
 
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li></ul>
