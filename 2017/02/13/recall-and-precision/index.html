@@ -35,7 +35,7 @@ F1
 当预测正">
 <meta property="og:image" content="https://kidjourney.github.io/images/Precisionrecall.svg.png">
 <meta property="og:image" content="https://kidjourney.github.io/images/confusion_matrix.png">
-<meta property="og:updated_time" content="2017-07-21T02:05:05.000Z">
+<meta property="og:updated_time" content="2017-08-25T02:29:34.000Z">
 <meta name="twitter:card" content="summary">
 <meta name="twitter:title" content="recall_and_precision">
 <meta name="twitter:description" content="Intro在ML中评估是一个很重要的环节，一般有以下集中评估方式：
@@ -156,7 +156,7 @@ E     未检索到   C    D
 <li>D：预测不相关，未被检索到（TN）</li>
 </ul>
 <p>可以通过这个矩阵得到各种评估方式的计算方法：</p>
-<p>TP: 本该为正例，被预测为正例。<br>TF: 被改为负例，被预测为负例。<br>FP: 本该为正例，被预测为负例。<br>FN: 本该为负例，被预测为正例。</p>
+<p>TP: 本该为正例，被预测为正例。<br>TN: 被该为负例，被预测为负例。<br>FP: 本该为正例，被预测为负例。<br>FN: 本该为负例，被预测为正例。</p>
 <ul>
 <li>Accuracy = (TP + TN) / (P + N)</li>
 <li>Precision = TP / (TP + FP)</li>
@@ -164,7 +164,7 @@ E     未检索到   C    D
 </ul>
 <p><img src="/images/Precisionrecall.svg.png" alt="Precisionrecall"></p>
 <p>从计算方式我们可以大体确认这几个评估指标的意义：</p>
-<p>Precision（精确度）: 所有正确预测的正例，占所有被预测为正例的比率。<br>Recall(召回率）：所有正确预测的正例，占所有正例的比率。</p>
+<p>Precision（精确度）: 所有正确预测的正例，占所有正例的比率。<br>Recall(召回率）：所有正确预测的正例，占所有被预测为正例的比率。</p>
 <p><img src="/images/confusion_matrix.png" alt="confusion matrix"></p>
 <h2 id="F1-分数"><a href="#F1-分数" class="headerlink" title="F1 分数"></a>F1 分数</h2><p>既然我们已讨论了精确率和召回率，接下来可能要考虑的另一个指标是 F1 分数。F1 分数会同时考虑精确率和召回率，以便计算新的分数。</p>
 <p>可将 F1 分数理解为精确率和召回率的加权平均值，其中 F1 分数的最佳值为 1、最差值为 0：</p>
@@ -181,7 +181,7 @@ E     未检索到   C    D
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/2017/02/13/recall-and-precision/index.html" data-id="cj5d89jvn000hxer5huchotgt" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/2017/02/13/recall-and-precision/index.html" data-id="cj6r9ebvs000b1sr5c4skdhts" class="article-share-link">Share</a>
 
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ML/">ML</a></li></ul>
