@@ -69,6 +69,73 @@
       <div class="outer">
         <section id="main">
   
+    <article id="post-about-encoding" class="article article-type-post" itemscope itemprop="blogPost">
+  <div class="article-meta">
+    <a href="/2017/02/17/about-encoding/" class="article-date">
+  <time datetime="2017-02-17T07:26:45.000Z" itemprop="datePublished">2017-02-17</time>
+</a>
+    
+  </div>
+  <div class="article-inner">
+    
+    
+      <header class="article-header">
+        
+  
+    <h1 itemprop="name">
+      <a class="article-title" href="/2017/02/17/about-encoding/">about_encoding</a>
+    </h1>
+  
+
+      </header>
+    
+    <div class="article-entry" itemprop="articleBody">
+      
+        <h2 id="关于Unicode"><a href="#关于Unicode" class="headerlink" title="关于Unicode"></a>关于Unicode</h2><p>几个概念：</p>
+<h4 id="Code-Point"><a href="#Code-Point" class="headerlink" title="Code Point"></a>Code Point</h4><p>code point是一个整数值，一般为十六进制。比如<code>0x12ca</code>写作<code>U+12ca</code></p>
+<h4 id="Character"><a href="#Character" class="headerlink" title="Character"></a>Character</h4><p>character是文本的最小基本单位，如<code>A</code>、<code>B</code>、<code>C</code>、<code>你</code>、<code>我</code>、<code>他</code>、<code>+</code>、<code>-</code>、<code>！</code>、<code>。</code></p>
+<h4 id="glyph"><a href="#glyph" class="headerlink" title="glyph"></a>glyph</h4><p>glyph是字符在屏幕上的表现形式。</p>
+<h3 id="这三者之间的关系"><a href="#这三者之间的关系" class="headerlink" title="这三者之间的关系"></a>这三者之间的关系</h3><p>UNICODE_TABLE[code_point] =&gt; character</p>
+<p>print(character) =&gt; 我们在屏幕上看到的东西</p>
+<h2 id="编码"><a href="#编码" class="headerlink" title="编码"></a>编码</h2><p>Unicode字符串其实就是一串code point，从0到0x10FFFF。</p>
+<p>在计算机中，保存数据只能通过二进制来表示，因此这一串code point需要用一组byte来表示。</p>
+<p>将Unicode string转化成一串字符串的规则，被叫做编码。</p>
+<p>我们现在制造一种编码，用32位表示一个code point，那么”Pyhton”就会被表示为:</p>
+<pre><code>   P           y           t           h           o           n
+0x50 00 00 00 79 00 00 00 74 00 00 00 68 00 00 00 6f 00 00 00 6e 00 00 00
+   0  1  2  3  4  5  6  7  8  9 10 11 12 13 14 15 16 17 18 19 20 21 22 23
+</code></pre><p>这种方法简单粗暴，但是有一些问题：</p>
+<ul>
+<li>兼容性不好：不同处理器处理字节的顺序不同。<a href="https://en.wikipedia.org/wiki/Endianness" target="_blank" rel="external">Endian</a></li>
+<li>浪费空间，对于一篇纯英文的文章来说，存储空间要是ascii的四倍。</li>
+<li>和C语言的<code>strlen</code>不兼容，因为有<code>\0</code>。</li>
+<li>很多网络协议是基于文本的，不能处理其中的<code>0x00</code>(\0)。</li>
+</ul>
+<h2 id="UTF8"><a href="#UTF8" class="headerlink" title="UTF8"></a>UTF8</h2><p>UTF-8 是一种最广泛使用的编码格式。UTF代表着<code>Unicode Transformation Format</code>，<code>8</code>代表编码使用8bit的数字。</p>
+<p>UTF-8有几个很方便的属性：</p>
+<ul>
+<li>可以处理任何Unicode code point。</li>
+<li>通过UTF8编码得到的byte串没有内嵌的<code>0x00</code>，这避免了字节序的问题，并且兼容c语言字符串相关的函数和那些无法正确处理<code>\0</code>的协议。</li>
+<li>兼容古老的ASCII。</li>
+<li>空间使用率高，大部分的最常使用的字符都可以在2字节内表示。</li>
+<li>就算由UTF-8编码得到的byte串在传输过程中丢失、损毁信息，也可以很简单的找到下一个code point。</li>
+</ul>
+<h2 id="不同编码之间的转换"><a href="#不同编码之间的转换" class="headerlink" title="不同编码之间的转换"></a>不同编码之间的转换</h2><h2 id="Encoding-In-Python"><a href="#Encoding-In-Python" class="headerlink" title="Encoding  In Python"></a>Encoding  In Python</h2>
+      
+    </div>
+    <footer class="article-footer">
+      <a data-url="https://kidjourney.github.io/page/2/index.html" data-id="cjj46vrrj0004scfyp5kz8xfx" class="article-share-link">Share</a>
+
+      
+  <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/CS/">CS</a></li></ul>
+
+    </footer>
+  </div>
+  
+</article>
+
+
+  
     <article id="post-bias-and-variance" class="article article-type-post" itemscope itemprop="blogPost">
   <div class="article-meta">
     <a href="/2017/02/16/bias-and-variance/" class="article-date">
@@ -101,7 +168,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/page/2/index.html" data-id="cj6r9ebvm00081sr5c7i9sb4c" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/page/2/index.html" data-id="cjj46vrrm0009scfyf46kp4d0" class="article-share-link">Share</a>
 
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ML/">ML</a></li></ul>
@@ -156,7 +223,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/page/2/index.html" data-id="cj6r9ebvi00041sr5w3ngvhx4" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/page/2/index.html" data-id="cjj46vrrk0006scfyksmusvzy" class="article-share-link">Share</a>
 
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/blog/">blog</a></li></ul>
@@ -197,7 +264,7 @@
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/page/2/index.html" data-id="cj6r9ebv800001sr5smul8h5b" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/page/2/index.html" data-id="cjj46vrrf0001scfyzyfa5057" class="article-share-link">Share</a>
 
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/Life/">Life</a></li></ul>
@@ -283,7 +350,7 @@ E     未检索到   C    D
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/page/2/index.html" data-id="cj6r9ebvs000b1sr5c4skdhts" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/page/2/index.html" data-id="cjj46vrrt000oscfy8ir3tohb" class="article-share-link">Share</a>
 
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/ML/">ML</a></li></ul>
@@ -323,7 +390,7 @@ E     未检索到   C    D
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/page/2/index.html" data-id="cj6r9ebvv000f1sr5yb7q3v02" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/page/2/index.html" data-id="cjj46vrrs000mscfy0hsj4jf6" class="article-share-link">Share</a>
 
       
     </footer>
@@ -426,7 +493,7 @@ MASTER_CONNECT_RETRY=10;
       
     </div>
     <footer class="article-footer">
-      <a data-url="https://kidjourney.github.io/page/2/index.html" data-id="cj6r9ebvk00051sr5kjvixw0z" class="article-share-link">Share</a>
+      <a data-url="https://kidjourney.github.io/page/2/index.html" data-id="cjj46vrrp000escfyso9n8b6a" class="article-share-link">Share</a>
 
       
   <ul class="article-tag-list"><li class="article-tag-list-item"><a class="article-tag-list-link" href="/tags/database/">database</a></li></ul>
@@ -473,7 +540,7 @@ MASTER_CONNECT_RETRY=10;
   <div class="widget-wrap">
     <h3 class="widget-title">Archives</h3>
     <div class="widget">
-      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li></ul>
+      <ul class="archive-list"><li class="archive-list-item"><a class="archive-list-link" href="/archives/2018/07/">July 2018</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/05/">May 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/03/">March 2017</a></li><li class="archive-list-item"><a class="archive-list-link" href="/archives/2017/02/">February 2017</a></li></ul>
     </div>
   </div>
 
@@ -484,6 +551,10 @@ MASTER_CONNECT_RETRY=10;
     <h3 class="widget-title">Recent Posts</h3>
     <div class="widget">
       <ul>
+        
+          <li>
+            <a href="/2018/07/02/404-not-found/">404-not-found</a>
+          </li>
         
           <li>
             <a href="/2017/05/08/thrift-http/">thrift&amp;http</a>
@@ -501,10 +572,6 @@ MASTER_CONNECT_RETRY=10;
             <a href="/2017/03/21/meta-programming/">meta_programming</a>
           </li>
         
-          <li>
-            <a href="/2017/03/16/mongodb-Replica-Set-Deployment-Architectures/">mongodb_Replica_Set_Deployment_Architectures</a>
-          </li>
-        
       </ul>
     </div>
   </div>
@@ -517,7 +584,7 @@ MASTER_CONNECT_RETRY=10;
   
   <div class="outer">
     <div id="footer-info" class="inner">
-      &copy; 2017 KIDJourney<br>
+      &copy; 2018 KIDJourney<br>
       Powered by <a href="http://hexo.io/" target="_blank">Hexo</a>
     </div>
   </div>
